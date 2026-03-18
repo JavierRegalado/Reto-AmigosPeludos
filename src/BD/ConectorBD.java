@@ -19,7 +19,7 @@ public class ConectorBD {
                 //Establecemos la conexion con la BD            
                 //La BD se encuentra en el localhost(en mi ordenador)
                 //La conexion se hace a traves del puerto 3306
-                conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca","root","1DAW3_BBDD"); // Añadir nombre de la bb, usuario y contraseña
+                conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/amigospeludos","root","1DAW3_BBDD"); // Añadir nombre de la bb, usuario y contraseña
                 System.out.println("Conexion establecida");
           
              }catch(Exception e){
