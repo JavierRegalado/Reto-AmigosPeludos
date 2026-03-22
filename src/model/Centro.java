@@ -5,114 +5,95 @@ import java.util.regex.Pattern;
 
 public class Centro {
     
-    //CONSTANTES (PATRONES)
-    //Definimos los patrones una sola vez como 'static final' para eficiencia.
-    
-    //1. Patrón solo letras (Español + Espacios) -> Para Ciudad y Provincia
-    private static final Pattern PATRON_LETRAS = Pattern.compile("[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]+$");
-    
-    //2. Patrón Dirección (Letras + Números + Símbolos comunes de calle) -> Para DirCen
-    private static final Pattern PATRON_DIRECCION = Pattern.compile("[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ0-9,ºª\\. ]+");
+    // --- PATRONES DE VALIDACIÓN ---
+    private static final Pattern PATRON_ID = Pattern.compile("^CEN[0-9]{3}$"); // Ej: CEN001
+    private static final Pattern PATRON_LETRAS = Pattern.compile("^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]+$");
+    private static final Pattern PATRON_DIRECCION = Pattern.compile("^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ0-9,ºª\\. -]+$");
 
-
-    //ATRIBUTOS
-    private int id; // El ID único de ESTE centro
-    private String DirCen;
-    private String Provincia;
-    private String Ciudad;
+    // --- ATRIBUTOS ---
+    private String idCentro; 
+    private String direccion;
+    private String provincia;
+    private String ciudad;
     
-    //Contador global estático (compartido por todos)
-    public static int IDCentro = 0; 
-
-    
-    //CONSTRUCTORES
-    
-    public Centro(String dirCen, String provincia, String ciudad) {
-        super();
-        //Primero asignamos el ID
-        IDCentro++;
-        this.id = IDCentro;
-        
-        //Usamos los setters para validar. Si algo está mal, lanzará excepción aquí.
-        this.setDirCen(dirCen);
-        this.setProvincia(provincia);
-        this.setCiudad(ciudad);
-    }
+    // --- CONSTRUCTORES ---
     
     public Centro() {
-        //Constructor vacío: Solo incrementa ID
-        IDCentro++;
-        this.id = IDCentro;
+        // Constructor vacío listo para ser llenado desde la BD
     }
     
+    public Centro(String idCentro, String direccion, String provincia, String ciudad) {
+        this.idCentro = idCentro;
+        this.direccion = direccion;
+        this.provincia = provincia;
+        this.ciudad = ciudad;
+    }
     
-    //GETTERS
+    // --- GETTERS Y SETTERS ---
+    // (Se mantienen por si en el futuro necesitas modificar un centro ya creado o para el DAO)
     
-    public int getId() {
-        return id;
+    public String getIdCentro() {
+        return idCentro;
     }
-    public static int getIDCentro() {
-        return IDCentro;
+
+    public void setIdCentro(String idCentro) {
+        validarConPatron(idCentro, PATRON_ID, "ID del Centro (ej. CEN001)");
+        this.idCentro = idCentro;
     }
-    public String getDirCen() {
-        return DirCen;
+
+    public String getDireccion() {
+        return direccion;
     }
+
+    public void setDireccion(String direccion) {
+        validarConPatron(direccion, PATRON_DIRECCION, "Dirección");
+        this.direccion = direccion;
+    }
+
     public String getProvincia() {
-        return Provincia;
-    }
-    public String getCiudad() {
-        return Ciudad;
-    }
-    
-    
-    //SETTERS CON PATTERN Y MATCHER
-    
-    public void setDirCen(String dirCen) {
-        // 1. Creamos el Matcher usando el Patrón definido arriba
-        Matcher matcher = PATRON_DIRECCION.matcher(dirCen);
-        
-        // 2. Comprobamos si coincide
-        if (matcher.matches()) {
-            this.DirCen = dirCen;
-        } else {
-            throw new IllegalArgumentException("La Dirección contiene caracteres no válidos (se permiten letras, números, comas y puntos).");
-        }
+        return provincia;
     }
 
     public void setProvincia(String provincia) {
-        Matcher matcher = PATRON_LETRAS.matcher(provincia);
-        
-        if (matcher.matches()) {
-            this.Provincia = provincia;
-        } else {
-            throw new IllegalArgumentException("La Provincia '" + provincia + "' no es válida. Solo letras del alfabeto español.");
-        }
+        validarConPatron(provincia, PATRON_LETRAS, "Provincia");
+        this.provincia = provincia;
+    }
+
+    public String getCiudad() {
+        return ciudad;
     }
 
     public void setCiudad(String ciudad) {
-        Matcher matcher = PATRON_LETRAS.matcher(ciudad);
+        validarConPatron(ciudad, PATRON_LETRAS, "Ciudad");
+        this.ciudad = ciudad;
+    }
+    
+    // --- MÉTODO DE VALIDACIÓN UNIFICADO ---
+    
+    private void validarConPatron(String texto, Pattern patron, String nombreCampo) {
+        if (texto == null || texto.trim().isEmpty()) {
+            throw new IllegalArgumentException(nombreCampo + " no puede estar vacío.");
+        }
         
-        if (matcher.matches()) {
-            this.Ciudad = ciudad;
-        } else {
-            throw new IllegalArgumentException("La Ciudad '" + ciudad + "' no es válida. Solo letras del alfabeto español.");
+        Matcher matcher = patron.matcher(texto.trim());
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException(nombreCampo + " '" + texto + "' contiene caracteres inválidos o no tiene el formato correcto.");
         }
     }
 
+    // --- TO STRING Y EQUALS ---
     
-    //TO STRING
     @Override
     public String toString() {
-        return "[ID= " + id + ", DirCen= " + DirCen + ", Provincia= " + Provincia + ", Ciudad= " + Ciudad + "]";
+        return "Centro [ID=" + idCentro + ", Dirección=" + direccion + ", Provincia=" + provincia + ", Ciudad=" + ciudad + "]";
     }
+    
     @Override
     public boolean equals(Object obj) {
-
         if (this == obj) return true;
-        
         if (obj == null || getClass() != obj.getClass()) return false;
         
         Centro other = (Centro) obj;
-        return this.id == other.id;
+        return this.idCentro != null && this.idCentro.equals(other.idCentro);
     }
 }

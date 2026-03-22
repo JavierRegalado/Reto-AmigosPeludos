@@ -5,117 +5,144 @@ import java.util.regex.Pattern;
 
 public class Animal {
     
-    private static final Pattern PATRON_LETRAS = Pattern.compile("[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]+$");
+    // Patrones de validación
+    private static final Pattern PATRON_ID_ANIMAL = Pattern.compile("^ANI[0-9]{3}$"); // Ej: ANI001
+    private static final Pattern PATRON_ID_CENTRO = Pattern.compile("^CEN[0-9]{3}$"); // Ej: CEN001
+    // Patrón más permisivo para nombres y descripciones (permite espacios, comas y puntos)
+    private static final Pattern PATRON_TEXTO = Pattern.compile("^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ0-9 .,]+$");
 
+    // Enum para reflejar el campo ENUM 'Especie' de la base de datos
+    public enum Especie {
+        Perro, Gato, Pez
+    }
 
-    private int id;
-    private String nombre;
-    private String raza;
-    private int edad;
-    private boolean disponibilidad;
-    private String centro;
-    private boolean sano;
+    private String idAnimal;
+    private String idCentro;
+    private String nombreAnim;
+    private int edadMeses;
+    private Especie especie;
+    private String caracteristicas;
+    private String necesidadesEspeciales;
     
-    private static int contadorId = 0;
+// --- CONSTRUCTORES ---
     
+    // Constructor vacío
     public Animal() {
-        contadorId++;
-        this.id = contadorId;
     }
 
-    public Animal(String nombre, String raza, int edad, boolean disponibilidad, String centro, boolean sano) {
+    public Animal(String idAnimal, String idCentro, String nombreAnim, int edadMeses, Especie especie, String caracteristicas, String necesidadesEspeciales) {
+        this.idAnimal = idAnimal;
+        this.idCentro = idCentro;
+        this.nombreAnim = nombreAnim;
+        this.edadMeses = edadMeses;
+        this.especie = especie;
+        this.caracteristicas = caracteristicas;
+        this.necesidadesEspeciales = necesidadesEspeciales;
+    }
+
+    // --- GETTERS Y SETTERS ---
+
+    public String getIdAnimal() {
+        return idAnimal;
+    }
+
+    public void setIdAnimal(String idAnimal) {
+        validarConPatron(idAnimal, PATRON_ID_ANIMAL, "ID del Animal", false);
+        this.idAnimal = idAnimal;
+    }
+
+    public String getIdCentro() {
+        return idCentro;
+    }
+
+    public void setIdCentro(String idCentro) {
+        validarConPatron(idCentro, PATRON_ID_CENTRO, "ID del Centro", false);
+        this.idCentro = idCentro;
+    }
+
+    public String getNombreAnim() {
+        return nombreAnim;
+    }
+
+    public void setNombreAnim(String nombreAnim) {
+        validarConPatron(nombreAnim, PATRON_TEXTO, "Nombre del Animal", false);
+        this.nombreAnim = nombreAnim;
+    }
+
+    public int getEdadMeses() {
+        return edadMeses;
+    }
+
+    public void setEdadMeses(int edadMeses) {
+        if (edadMeses < 0) throw new IllegalArgumentException("La edad en meses no puede ser negativa.");
+        this.edadMeses = edadMeses;
+    }
+
+    public Especie getEspecie() {
+        return especie;
+    }
+
+    public void setEspecie(Especie especie) {
+        if (especie == null) throw new IllegalArgumentException("La especie no puede estar vacía.");
+        this.especie = especie;
+    }
+
+    public String getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public void setCaracteristicas(String caracteristicas) {
+        validarConPatron(caracteristicas, PATRON_TEXTO, "Características", true);
+        this.caracteristicas = caracteristicas;
+    }
+
+    public String getNecesidadesEspeciales() {
+        return necesidadesEspeciales;
+    }
+
+    public void setNecesidadesEspeciales(String necesidadesEspeciales) {
+        validarConPatron(necesidadesEspeciales, PATRON_TEXTO, "Necesidades Especiales", true);
+        this.necesidadesEspeciales = necesidadesEspeciales;
+    }
+
+    // --- MÉTODOS DE VALIDACIÓN ---
+
+    private void validarConPatron(String texto, Pattern patron, String nombreCampo, boolean permiteNull) {
+        // Si el campo permite nulos (como caracteristicas o necesidades en la BD) y viene nulo/vacío, lo damos por bueno
+        if (permiteNull && (texto == null || texto.trim().isEmpty())) {
+            return; 
+        }
         
-        contadorId++;
-        this.id = contadorId;
+        // Si no permite nulos y viene vacío, lanza error
+        if (!permiteNull && (texto == null || texto.trim().isEmpty())) {
+            throw new IllegalArgumentException(nombreCampo + " no puede estar vacío.");
+        }
         
-        this.setNombre(nombre);
-        this.setRaza(raza);
-        this.setEdad(edad);
-        this.setDisponibilidad(disponibilidad);
-        this.setCentro(centro);
-        this.setSano(sano);
-    }
-
-
-    public int getId() {
-        return id;
-    }
-    public static int getContadorId() {
-        return contadorId;
-    }
-
-
-    public String getNombre() {
-        return nombre;
-    }
-    public void setNombre(String nombre) {
-        validarYAsignar(nombre, "Nombre");
-        this.nombre = nombre;
-    }
-
-    public String getRaza() {
-        return raza;
-    }
-    public void setRaza(String raza) {
-        validarYAsignar(raza, "Raza");
-        this.raza = raza;
-    }
-
-    public String getCentro() {
-        return centro;
-    }
-    public void setCentro(String centro) {
-        validarYAsignar(centro, "Centro");
-        this.centro = centro;
-    }
-    
-    public int getEdad() {
-        return edad;
-    }
-    public void setEdad(int edad) {
-        if (edad < 0) throw new IllegalArgumentException("La edad no puede ser negativa");
-        this.edad = edad;
-    }
-
-    public boolean isDisponibilidad() {
-        return disponibilidad;
-    }
-    public void setDisponibilidad(boolean disponibilidad) {
-        this.disponibilidad = disponibilidad;
-    }
-
-    public boolean isSano() {
-        return sano;
-    }
-    public void setSano(boolean sano) {
-        this.sano = sano;
-    }
-
-    //metodo para validar
-    private void validarYAsignar(String texto, String nombreCampo) {
-        //Comprueba si es nulo (seguridad básica)
-        if (texto == null) throw new IllegalArgumentException(nombreCampo + " no puede estar vacío.");
-        
-        //Comprueba si cumple el patrón (SOLO LETRAS)
-        Matcher matcher = PATRON_LETRAS.matcher(texto);
+        // Comprobación con la expresión regular
+        Matcher matcher = patron.matcher(texto.trim());
         if (!matcher.matches()) {
-            //Si falla, lanza la "bomba" (Excepción) con un mensaje
-            throw new IllegalArgumentException(nombreCampo + " '" + texto + "' no es válido. Solo se permiten letras.");
+            throw new IllegalArgumentException(nombreCampo + " '" + texto + "' contiene caracteres inválidos o no tiene el formato correcto.");
         }
     }
 
+    // --- TOSTRING Y EQUALS ---
+
     @Override
     public String toString() {
-        return "[ID= " + id + ", Nombre= " + nombre + ", Raza= " + raza + ", Edad= " + edad + ", Disponible= " + (disponibilidad ? "Sí" : "No") + ", Centro= " + centro + ", Sano= " + (sano ? "Sí" : "No") + "]";
+        return "Animal [ID=" + idAnimal + 
+               ", Centro=" + idCentro + 
+               ", Nombre=" + nombreAnim + 
+               ", Edad(meses)=" + edadMeses + 
+               ", Especie=" + especie + 
+               ", Caracteristicas=" + (caracteristicas != null ? caracteristicas : "Ninguna") + 
+               ", Necesidades=" + (necesidadesEspeciales != null ? necesidadesEspeciales : "Ninguna") + "]";
     }
-    //metodo equals 
-    public boolean equals(Object obj) {
 
+    @Override
+    public boolean equals(Object obj) {
         if (this == obj) return true;
-        
         if (obj == null || getClass() != obj.getClass()) return false;
-        
-        Animal anim = (Animal) obj;
-        return this.id == anim.id;
+        Animal other = (Animal) obj;
+        return this.idAnimal != null && this.idAnimal.equals(other.idAnimal);
     }
 }
