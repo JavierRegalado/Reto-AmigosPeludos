@@ -18,7 +18,6 @@ public class GestionAdopcion {
         ArrayList<Adopcion> listaAdopcion = new ArrayList<>();
         String query = "SELECT * FROM adopcion";
 
-        // Abrimos conexiones manualmente
         Connection con = Conector.getConexion();
         PreparedStatement myStmt = con.prepareStatement(query);
         ResultSet myRs = myStmt.executeQuery();
