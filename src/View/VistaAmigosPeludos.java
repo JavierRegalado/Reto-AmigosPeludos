@@ -6,6 +6,7 @@ import model.Pez;
 import model.Animal;
 import model.Adopcion;
 import model.Centro;
+import java.sql.SQLException;
 
 import util.GestionAdopcion;
 import util.GestionAnimal;
@@ -21,7 +22,10 @@ public class VistaAmigosPeludos {
     static GestionCentro gestionCen = new GestionCentro();
     static GestionAdopcion gestionAdop = new GestionAdopcion();
     
-    public void iniciar() {
+    public void iniciar() throws SQLException {
+    	
+    	Logger.inicializar();
+    	
     	int opcion = 0;
         
         do {
@@ -124,7 +128,7 @@ public class VistaAmigosPeludos {
         System.out.println("6. Volver");
     }
     
-    private static void eleccionDeGestion(int opcion) {
+    private static void eleccionDeGestion(int opcion) throws SQLException {
         
         switch(opcion) {
         case 1:         
@@ -226,7 +230,7 @@ public class VistaAmigosPeludos {
         
     }
    
-	public static void añadirAnimal() {
+	public static void añadirAnimal() throws SQLException {
 		int opcion;
         System.out.println("\n--- Nuevo Animal ---");
         do {
@@ -256,14 +260,36 @@ public class VistaAmigosPeludos {
                 System.out.println("Opcion no valida");
             }
         } while (opcion != 4);
+        
+        Logger.registrar("Añadir", "Animal", "se ha añadido un animal");
 	}
 	
-	public static void mostrarAnimales() {
+	public static void mostrarAnimales() throws SQLException {
 		
+		if(gestionAni.totAnimales() == 0) {
+            System.out.println("No hay animales registrados.");
+            return;
+        }
+        System.out.println("\n--- LISTA DE ANIMALES ---");
+        
+        for(Animal a : gestionAni.getListaAnimales()) {
+            System.out.println(a.toString());
+        }
 	}
     
-	public static void eliminarAnimal() {
-		
+	public static void eliminarAnimal() throws SQLException {
+		mostrarAnimales();
+        if (gestionAni.totAnimales() == 0) return;
+
+        String id = leerTexto("\nIntroduce el ID del animal que quieres eliminar: ");
+
+        Animal eliminado = gestionAni.eliminarAnimal(id);
+
+        if (eliminado != null) {
+            System.out.println("Se ha eliminado correctamente a: " + eliminado.getNombreAnim());
+        } else {
+            System.out.println("Error: No se ha encontrado ningún animal con el ID " + id);
+        }
 	}
 	
 	public static void modificarAnimal() {
