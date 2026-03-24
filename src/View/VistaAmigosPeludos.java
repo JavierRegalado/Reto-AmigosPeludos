@@ -1,12 +1,116 @@
 package View;
 
+import model.Gato;
+import model.Perro;
+import model.Pez;
+import model.Animal;
+import model.Adopcion;
+import model.Centro;
+
+import util.GestionAdopcion;
+import util.GestionAnimal;
+import util.GestionCentro;
+import util.Logger;
+
+import java.util.Scanner;
+
 public class VistaAmigosPeludos {
 	
-    public static void mostrarMenuGestion() {
+	static Scanner sc = new Scanner(System.in);
+    static GestionAnimal gestionAni = new GestionAnimal();
+    static GestionCentro gestionCen = new GestionCentro();
+    static GestionAdopcion gestionAdop = new GestionAdopcion();
+    
+    public void iniciar() {
+    	int opcion = 0;
+        
+        do {
+        	System.out.println("Como desea iniciar como admin(1) o como usuario(2)"
+    				+ " o desea cerrar el programa(0)");
+    		opcion = leerNum("Elige opcion: ");
+    		
+    		switch(opcion) {
+    			case 1: 
+    				do {
+    		            mostrarMenuGestionAdmin();
+    		            opcion = leerNum("Elige una opción: ");
+    		            
+    		            eleccionDeGestion(opcion);
+    		            
+    		        } while (opcion != 4);
+    				break;
+    			case 2:
+    				do {
+    					mostrarMenuUsu();
+    		            opcion = leerNum("Introduce la opcion: ");
+    		            switch (opcion) {
+    		        
+    		            case 1:
+    		                do {
+    		                		mostrarMenuEntidad("Adopcion");
+    		                    opcion = leerNum("Introduce opcion: ");
+    		                    
+    		                    switch (opcion) {
+    		                    case 1:
+    		                        añadirAdop();
+    		                        break;
+    		                    case 2:
+    		                        modificarAdop();
+    		                        break;
+    		                    case 3:
+    		                        mostrarAdop();
+    		                        break;
+    		                    case 4:
+    		                        borrarAdop();
+    		                        break;
+    		                    case 5:
+    		                    	buscarAdop();
+    		                    	break;
+    		                    case 6:
+    		                    		System.out.println("Saliendo del menu de adopcion");
+    		                    		break;
+    		                    default:
+    		                        System.out.println("Opcion no valida");
+    		                    }
+    		                } while (opcion != 6);
+    		                break;
+    		            case 2:
+    		                mostrarAnimales();
+    		                break;
+    		            case 3:
+    		                mostrarCentro();
+    		                break;
+    		            case 4:
+    		            		System.out.println("Saliendo del menu de usuario");
+    		            		break;
+    		            default:
+    		                System.out.println("Opcion no valida");
+    		            }
+    				} while (opcion!=4);
+    				break;
+    			case 3:
+    				System.out.println("Saliendo del programa");
+    			break;
+    			default:
+    				System.out.println("Opcion no valida");
+    		}
+        	
+        }while(opcion != 3);
+    }
+    
+    public static void mostrarMenuGestionAdmin() {
         System.out.println("\n--- GESTIÓN DEL ADMINISTRADOR ---");
         System.out.println("1. Gestionar animales");
         System.out.println("2. Gestionar centros");
         System.out.println("3. Gestionar adopciones");
+        System.out.println("4. Salir");
+    }
+    
+    public static void mostrarMenuUsu() {
+        System.out.println("Bienvenido usuario que es lo que quiere hacer hoy");
+        System.out.println("1. Gestionar sus solicitudes de adopcion");
+        System.out.println("2. comprobar informacion de los animales");
+        System.out.println("3. Comprobar la informacion de los centros");
         System.out.println("4. Salir");
     }
     
@@ -18,5 +122,208 @@ public class VistaAmigosPeludos {
         System.out.println("4. Modificar " + entidad);
         System.out.println("5. Buscar " + entidad);
         System.out.println("6. Volver");
+    }
+    
+    private static void eleccionDeGestion(int opcion) {
+        
+        switch(opcion) {
+        case 1:         
+            do {
+                mostrarMenuEntidad("Animal");
+                opcion = leerNum("Elige una opción: ");
+
+                switch (opcion) {
+                    case 1: 
+                    	añadirAnimal(); 
+                    	break;
+                    case 2: 
+                    	mostrarAnimales(); 
+                    	break;
+                    case 3: 
+                    	eliminarAnimal(); 
+                    	break;
+                    case 4: 
+                    	modificarAnimal(); 
+                    	break;
+                    case 5: 
+                    	buscarAnimal(); 
+                    	break;
+                    case 6: 
+                    	System.out.println("Volviendo al menú principal..."); 
+                    	break;
+                    default: 
+                    	System.out.println("Opción no válida");
+                }
+            } while (opcion != 6);
+            break;
+            
+        case 2:
+            do {
+                mostrarMenuEntidad("Centro");
+                opcion = leerNum("Elige una opción: ");
+                
+                switch (opcion) {
+                    case 1: 
+                    	crearCentro(); 
+                    	break;
+                    case 2: 
+                    	mostrarCentro(); 
+                    	break;
+                    case 3: 
+                    	eliminarCentro(); 
+                    	break;
+                    case 4: 
+                    	modificarCentro(); 
+                    	break;
+                    case 5: 
+                    	buscarCentro();
+                    	break;
+                    case 6: 
+                    	System.out.println("Volviendo al menú principal..."); 
+                    	break;
+                    default: 
+                    	System.out.println("Opción no válida");
+                }
+            } while (opcion != 6);
+            break;
+            
+        case 3:
+            do {
+                mostrarMenuEntidad("Adopcion");
+                opcion = leerNum("Elige una opción: ");
+                
+                switch (opcion) {
+                    case 1: 
+                    	añadirAdop(); 
+                    	break;
+                    case 2: 
+                    	mostrarAdop(); 
+                    	break;
+                    case 3: 
+                    	borrarAdop(); 
+                    	break;
+                    case 4: 
+                    	modificarAdop(); 
+                    	break;
+                    case 5: 
+                    	buscarAdop(); 
+                    	break;
+                    case 6: 
+                    	System.out.println("Volviendo al menú principal..."); 
+                    	break;
+                    default: 
+                    	System.out.println("Opción no válida");
+                }
+            } while (opcion != 6);
+            break;
+            
+        case 4:
+            System.out.println("Cerrando interfaz de gestion...");
+            break;
+        default:
+            System.out.println("Introduce una de las opciones mostradas por favor");
+        }
+        
+    }
+   
+	public static void añadirAnimal() {
+		
+	}
+	
+	public static void mostrarAnimales() {
+		
+	}
+    
+	public static void eliminarAnimal() {
+		
+	}
+	
+	public static void modificarAnimal() {
+		
+	}
+	
+	public static void buscarAnimal() {
+		
+	}
+	
+	public static void crearCentro() {
+		
+	}
+	
+	public static void mostrarCentro() {
+		
+	}
+    
+	public static void eliminarCentro() {
+		
+	}
+	
+	public static void modificarCentro() {
+		
+	}
+	
+	public static void buscarCentro() {
+		
+	}
+	
+	public static void añadirAdop() {
+		
+	}
+	
+	public static void mostrarAdop() {
+		
+	}
+    
+	public static void borrarAdop() {
+		
+	}
+	
+	public static void modificarAdop() {
+		
+	}
+	
+	public static void buscarAdop() {
+		
+	}
+	
+    static boolean leerBoolean(String mensaje) {
+        while (true) {
+            System.out.print(mensaje);
+            String conversion = sc.nextLine().trim().toLowerCase();
+
+            if (conversion.equals("si") || conversion.equals("sí")) return true;
+            if (conversion.equals("no")) return false;
+
+            System.out.println("Respuesta inválida. Escribe si o no.");
+        }
+    }
+    
+    public static String leerTexto(String mensaje) {
+        String texto = "";
+        while (texto.isEmpty()) {
+            System.out.print(mensaje);
+            texto = sc.nextLine().trim();
+            if (texto.isEmpty()) {
+                System.out.println("Error: No puedes dejar este campo vacío.");
+            }
+        }
+        return texto;
+    }
+
+    public static int leerNum(String mensaje) {
+        int num = 0;
+        boolean valido = false;
+        
+        while (!valido) {
+            try {
+                System.out.print(mensaje);
+                String input = sc.nextLine(); 
+                num = Integer.parseInt(input);
+                valido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Debes introducir un número entero válido.");
+            }
+        }
+        return num;
     }
 }
