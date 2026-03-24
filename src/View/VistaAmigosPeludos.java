@@ -292,8 +292,58 @@ public class VistaAmigosPeludos {
         }
 	}
 	
-	public static void modificarAnimal() {
-		
+	public static void modificarAnimal() throws SQLException {
+		mostrarAnimales();
+        if (gestionAni.totAnimales() == 0) return;
+
+        String id = leerTexto("\n Introduce el ID del animal que quieres modificar: ");
+        
+        Animal animalExistente = gestionAni.buscarAnimalId(id);
+
+        if (gestionAni.buscarAnimalId(id) == null) {
+            System.out.println("Error: No existe ese ID.");
+            return;
+        }
+
+        System.out.println("--- Introduce los nuevos datos ---");
+        
+        animalExistente.setIdAnimal(leerTexto("id Animal: "));
+        animalExistente.setIdCentro(leerTexto("id Centro: "));
+        animalExistente.setNombreAnim(leerTexto("Nuevo Nombre: "));
+        animalExistente.setEdadMeses(leerNum("Nueva Edad: "));
+        animalExistente.setCaracteristicas(leerTexto("Nueva Caracteristica: "));
+        animalExistente.setNecesidadesEspeciales(leerTexto("Nuevas necesidades especiales: "));
+        
+       if(animalExistente instanceof Perro perro) {
+    	   System.out.println("-- Datos especificos de Perro --");
+    	   perro.setTamano(leerTexto("Nuevo tamaño (centimetros): "));
+    	   perro.setEntrenado(leerBoolean("Entrenado (si/no): "));
+    	   perro.setRaza(leerTexto("Nueva raza: "));
+    	   
+       }else if(animalExistente instanceof Pez pez) {
+    	   System.out.println("-- Datos especificos de Pez --");
+    	   pez.setAguaDulce(leerBoolean("Agua dulce (si/no): "));
+    	   pez.setCompatibleComunidad(leerBoolean("Es compatible (si/no): "));
+    	   pez.setEspeciePez(leerTexto("Especie: "));
+       }else if(animalExistente instanceof Gato gato) {
+    	   System.out.println("-- Datos especificos de Gato --");
+    	   gato.setSociabilidad(leerNum("Nueva Sociabilidad: "));
+    	   gato.setPelaje(leerTexto("Nuevo pelaje: "));
+    	   gato.setRaza(leerTexto("Nueva raza: "));
+       }
+
+        
+        try {
+            Animal modificado = gestionAni.modAnimal(animalExistente);
+            if (modificado != null) {
+                System.out.println("Animal modificado correctamente.");
+                System.out.println(modificado);
+            } else {
+                System.out.println("Error: No se encontró el animal.");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error de validación: " + e.getMessage());
+        }
 	}
 	
 	public static void buscarAnimal() {
@@ -354,13 +404,14 @@ public class VistaAmigosPeludos {
         String idAnim = leerTexto("id Animal: ");
         String idCen = leerTexto("id Centro: ");
         String nomAnim = leerTexto("Nombre: ");
-        int edad = leerNum("Edad: ");
+        int edad = leerNum("Edad (meses): ");
         String carac = leerTexto("Caracteristicas: ");
         String necEsp = leerTexto("Necesidades especiales: ");
+        String raza = leerTexto("Raza: ");
         String tamano = leerTexto("Tamaño: ");
         boolean entrenado = leerBoolean("¿Está entrenado? (si/no): ");
 
-        return new Perro(idAnim, idCen, nomAnim, edad, carac, necEsp, tamano, entrenado);
+        return new Perro(idAnim, idCen, nomAnim, edad, carac, necEsp, raza, tamano, entrenado);
     }
 	
 	public static Gato crearGato() {
@@ -372,14 +423,15 @@ public class VistaAmigosPeludos {
         int edad = leerNum("Edad: ");
         String carac = leerTexto("Caracteristicas: ");
         String necEsp = leerTexto("Necesidades especiales: ");
+        String raza = leerTexto("Raza: ");
         int soc = leerNum("Sociabilidad: ");
         String pela = leerTexto("Pelaje: ");
 
-        return new Gato(idAnim, idCen, nomAnim, edad, carac, necEsp, soc, pela);
+        return new Gato(idAnim, idCen, nomAnim, edad, carac, necEsp, raza, soc, pela);
     }
 	
 	public static Pez crearPez() {
-        System.out.println("---- Creación de Perro ----");
+        System.out.println("---- Creación de Pezz ----");
        
         String idAnim = leerTexto("id Animal: ");
         String idCen = leerTexto("id Centro: ");
@@ -387,10 +439,11 @@ public class VistaAmigosPeludos {
         int edad = leerNum("Edad: ");
         String carac = leerTexto("Caracteristicas: ");
         String necEsp = leerTexto("Necesidades especiales: ");
-        String color = leerTexto("Color: ");
+        String especie = leerTexto("Especie: ");
+        boolean compa = leerBoolean("Es compatible con otros peces (si/no): ");
         boolean agua = leerBoolean("Agua Dulce (si/no):");
 
-        return new Pez(idAnim, idCen, nomAnim, edad, carac, necEsp, color, agua);
+        return new Pez(idAnim, idCen, nomAnim, edad, carac, necEsp, especie, compa, agua);
     }
 	
     static boolean leerBoolean(String mensaje) {
