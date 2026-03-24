@@ -21,8 +21,8 @@ public class MenuApp {
 
 			// 1. PROBAR INSERCIÓN (Añadir un Perro y un Gato)
 			System.out.println("\n1. Insertando animales...");
-			Perro perro1 = new Perro("P001", "CEN01", "Rex", 24, "Juguetón", "Ninguna", "Grande", true);
-			Gato gato1 = new Gato("G001", "CEN01", "Misifu", 12, "Tranquilo", "Comida especial", 8, "Largo");
+			Perro perro1 = new Perro("ANI019", "CEN001", "Rex", 24, "Juguetón", "Ninguna","Galgo", "Grande", true);
+			Gato gato1 = new Gato("ANI020", "CEN001", "Misifu", 12, "Tranquilo", "Comida especial","Persa", 8, "Largo");
 
 			gestion.añadirAnimal(perro1);
 			gestion.añadirAnimal(gato1);
@@ -41,8 +41,8 @@ public class MenuApp {
 			}
 
 			// 4. PROBAR BUSCAR POR ID
-			System.out.println("\n4. Buscando animal con ID 'P001'...");
-			Animal buscado = gestion.buscarAnimalId("P001");
+			System.out.println("\n4. Buscando animal con ID 'ANI001'...");
+			Animal buscado = gestion.buscarAnimalId("ANI001");
 			if (buscado != null) {
 				System.out.println("Encontrado: " + buscado.getNombreAnim());
 			}
@@ -56,8 +56,8 @@ public class MenuApp {
 			}
 
 			// 6. PROBAR ELIMINAR
-			System.out.println("\n6. Eliminando al gato 'G001'...");
-			Animal eliminado = gestion.eliminarAnimal("G001");
+			System.out.println("\n6. Eliminando el animal 'ANI001'...");
+			Animal eliminado = gestion.eliminarAnimal("ANI001");
 			if (eliminado != null) {
 				System.out.println("Animal " + eliminado.getNombreAnim() + " eliminado con éxito.");
 			}
@@ -71,6 +71,5 @@ public class MenuApp {
 		} catch (Exception e) {
 			System.err.println("Error general: " + e.getMessage());
 		}
-		Conector.cerrarConexion();
 	}
 }

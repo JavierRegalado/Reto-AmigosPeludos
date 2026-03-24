@@ -2,6 +2,7 @@ package model;
 
 public class Perro extends Animal {
 	
+	private String raza;
 	private String tamano;
 	private boolean entrenado;
 	
@@ -11,8 +12,9 @@ public class Perro extends Animal {
 	}
 	
 
-	public Perro(String idAnimal, String idCentro, String nombreAnim, int edadMeses, String caracteristicas, String necesidadesEspeciales, String tamano, boolean entrenado) {
+	public Perro(String idAnimal, String idCentro, String nombreAnim, int edadMeses, String caracteristicas, String necesidadesEspeciales,String raza, String tamano, boolean entrenado) {
 		super(idAnimal, idCentro, nombreAnim, edadMeses, Especie.Perro, caracteristicas, necesidadesEspeciales);
+		this.raza = raza;
 		this.tamano = tamano;
 		this.entrenado = entrenado;
 	}
@@ -32,6 +34,14 @@ public class Perro extends Animal {
 	public void setEntrenado(boolean entrenado) {
 		this.entrenado = entrenado;
 	}
+	public String getRaza() {
+		return raza;
+	}
+
+
+	public void setRaza(String raza) {
+		this.raza = raza;
+	}
 
 	public String realizarEntrenamiento() {
 		String mensaje;
@@ -46,8 +56,14 @@ public class Perro extends Animal {
 		return mensaje;
 	}
 
+	
+
+
 	@Override
 	public String toString() {
-		return super.toString() + " -> Perro [Tamaño=" + tamano + ", Entrenado=" + entrenado + "]";
+		return "Perro [raza=" + raza + ", tamano=" + tamano + ", entrenado=" + entrenado + "]";
 	}
+
+
+
 }

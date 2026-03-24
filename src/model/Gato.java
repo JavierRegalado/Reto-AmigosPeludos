@@ -2,6 +2,7 @@ package model;
 
 public class Gato extends Animal {
 
+	private String raza;
 	private int sociabilidad;
 	private String pelaje;
 
@@ -11,8 +12,9 @@ public class Gato extends Animal {
 
 	// Constructor adaptado a la nueva clase Animal y con asignación directa
 	public Gato(String idAnimal, String idCentro, String nombreAnim, int edadMeses, String caracteristicas,
-			String necesidadesEspeciales, int sociabilidad, String pelaje) {
+			String necesidadesEspeciales,String raza, int sociabilidad, String pelaje) {
 		super(idAnimal, idCentro, nombreAnim, edadMeses, Especie.Gato, caracteristicas, necesidadesEspeciales);
+		this.raza = raza;
 		this.sociabilidad = sociabilidad;
 		this.pelaje = pelaje;
 	}
@@ -32,10 +34,20 @@ public class Gato extends Animal {
 	public void setPelaje(String pelaje) {
 		this.pelaje = pelaje;
 	}
+	
+	public String getRaza() {
+		return raza;
+	}
 
+	public void setRaza(String raza) {
+		this.raza = raza;
+	}
+	
+	
+	
 	@Override
 	public String toString() {
-		return super.toString() + " -> Gato [Sociabilidad: " + sociabilidad + ", Pelaje: " + pelaje + "]";
+		return "Gato [raza=" + raza + ", sociabilidad=" + sociabilidad + ", pelaje=" + pelaje + "]";
 	}
 
 	public String acariciar() {
@@ -52,4 +64,6 @@ public class Gato extends Animal {
 			return "¡Cuidado! " + this.getNombreAnim() + " te ha bufado.";
 		}
 	}
+
+
 }
