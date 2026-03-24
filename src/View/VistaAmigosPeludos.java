@@ -227,7 +227,35 @@ public class VistaAmigosPeludos {
     }
    
 	public static void añadirAnimal() {
-		
+		int opcion;
+        System.out.println("\n--- Nuevo Animal ---");
+        do {
+            mostrarOpcionAnim();
+            opcion = leerNum("Introduce opcion: ");
+            
+           switch (opcion) {
+            case 1:
+            	Perro nuevoPerro = crearPerro();
+            	gestionAni.añadirAnimal(nuevoPerro);
+            	System.out.println("Perro añadido");
+                break;
+            case 2:
+            	Pez nuevoPez = crearPez();
+            	gestionAni.añadirAnimal(nuevoPez);
+            	System.out.println("Pez añadido");
+                break;
+            case 3:
+            	Gato nuevoGato = crearGato();
+            	gestionAni.añadirAnimal(nuevoGato);
+            	System.out.println("Gato añadido");
+                break;
+            case 4:
+                System.out.println("Volviendo al menu principal");
+                break;
+            default:
+                System.out.println("Opcion no valida");
+            }
+        } while (opcion != 4);
 	}
 	
 	public static void mostrarAnimales() {
@@ -285,6 +313,59 @@ public class VistaAmigosPeludos {
 	public static void buscarAdop() {
 		
 	}
+	
+	public static void mostrarOpcionAnim() {
+  	  System.out.println("\n--- Que animal se añadira? ---");
+        System.out.println("1. Crear perro");
+        System.out.println("2. Crear pez");
+        System.out.println("3. Crear gato");
+        System.out.println("4. Salir");
+  }
+	
+	public static Perro crearPerro() {
+        System.out.println("---- Creación de Perro ----");
+       
+        String idAnim = leerTexto("id Animal: ");
+        String idCen = leerTexto("id Centro: ");
+        String nomAnim = leerTexto("Nombre: ");
+        int edad = leerNum("Edad: ");
+        String carac = leerTexto("Caracteristicas: ");
+        String necEsp = leerTexto("Necesidades especiales: ");
+        String tamano = leerTexto("Tamaño: ");
+        boolean entrenado = leerBoolean("¿Está entrenado? (si/no): ");
+
+        return new Perro(idAnim, idCen, nomAnim, edad, carac, necEsp, tamano, entrenado);
+    }
+	
+	public static Gato crearGato() {
+        System.out.println("---- Creación de Perro ----");
+       
+        String idAnim = leerTexto("id Animal: ");
+        String idCen = leerTexto("id Centro: ");
+        String nomAnim = leerTexto("Nombre: ");
+        int edad = leerNum("Edad: ");
+        String carac = leerTexto("Caracteristicas: ");
+        String necEsp = leerTexto("Necesidades especiales: ");
+        int soc = leerNum("Sociabilidad: ");
+        String pela = leerTexto("Pelaje: ");
+
+        return new Gato(idAnim, idCen, nomAnim, edad, carac, necEsp, soc, pela);
+    }
+	
+	public static Pez crearPez() {
+        System.out.println("---- Creación de Perro ----");
+       
+        String idAnim = leerTexto("id Animal: ");
+        String idCen = leerTexto("id Centro: ");
+        String nomAnim = leerTexto("Nombre: ");
+        int edad = leerNum("Edad: ");
+        String carac = leerTexto("Caracteristicas: ");
+        String necEsp = leerTexto("Necesidades especiales: ");
+        String color = leerTexto("Color: ");
+        boolean agua = leerBoolean("Agua Dulce (si/no):");
+
+        return new Pez(idAnim, idCen, nomAnim, edad, carac, necEsp, color, agua);
+    }
 	
     static boolean leerBoolean(String mensaje) {
         while (true) {
