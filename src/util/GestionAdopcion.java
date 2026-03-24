@@ -115,7 +115,7 @@ public class GestionAdopcion {
 	}
 
 	// 5. ELIMINAR (BORRAR) UNA ADOPCIÓN
-	public boolean elimAdop(String idABuscar) throws SQLException {
+	public Adopcion elimAdop(String idABuscar) throws SQLException {
 		String delete = "DELETE FROM adopcion WHERE id_solicitud = ?";
 
 		Connection con = Conector.getConexion();

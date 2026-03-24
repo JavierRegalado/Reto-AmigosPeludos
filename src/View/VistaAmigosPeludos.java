@@ -12,6 +12,7 @@ import util.GestionAdopcion;
 import util.GestionAnimal;
 import util.GestionCentro;
 import util.Logger;
+import java.time.LocalDate;
 
 import java.util.Scanner;
 
@@ -275,6 +276,7 @@ public class VistaAmigosPeludos {
         for(Animal a : gestionAni.getListaAnimales()) {
             System.out.println(a.toString());
         }
+        Logger.registrar("Mostrar", "Animal", "se ha mostrado la lista de animales");
 	}
     
 	public static void eliminarAnimal() throws SQLException {
@@ -290,6 +292,7 @@ public class VistaAmigosPeludos {
         } else {
             System.out.println("Error: No se ha encontrado ningún animal con el ID " + id);
         }
+        Logger.registrar("Eliminar", "Animal", "se ha eliminado un animal");
 	}
 	
 	public static void modificarAnimal() throws SQLException {
@@ -361,6 +364,7 @@ public class VistaAmigosPeludos {
         } else {
             System.out.println("No se ha encontrado ningún animal con el ID " + id);
         }
+        Logger.registrar("Modificar", "Animal", "se ha modificado un animal");
     }
 	
 	public static void crearCentro() throws SQLException {
@@ -413,7 +417,7 @@ public class VistaAmigosPeludos {
 
 		String id = leerTexto("\n Introduce el ID del centro a modificar: ");
 		
-		Centro modificado = gestionCen.buscarCentroID(id);
+		Centro resultado = gestionCen.buscarCentroID(id);
 		
 		if (gestionCen.buscarCentroID(id) == null) {
 			System.out.println("Error: No existe ese ID.");
@@ -421,17 +425,17 @@ public class VistaAmigosPeludos {
 		}
 
 		System.out.println("--- Introduce los nuevos datos ---");
-		modificado.setIdCentro(id);
-		modificado.setDireccion(leerTexto("Nueva ciudad: "));
-		String nuevaProv = leerTexto("Nueva Provincia: ");
-		String nuevaCiud = leerTexto("Nueva Ciudad: ");
+		resultado.setIdCentro(id);
+		resultado.setDireccion(leerTexto("Nueva direccion: "));
+		resultado.setProvincia(leerTexto("Nueva provincia: "));
+		resultado.setCiudad(leerTexto("Nueva Ciudad: "));
 
 		try {
-			Centro resultado = gestionCen.modCentro(idNueva, nuevaDir, nuevaProv, nuevaCiud);
+			Centro modificado = gestionCen.modCentro(resultado);
 			
-			if (resultado != null) {
+			if (modificado != null) {
 				System.out.println("Centro modificado correctamente.");
-				System.out.println(resultado);
+				System.out.println(modificado);
 			} else {
 				System.out.println("Error: No existe ese ID.");
 			}
@@ -440,28 +444,122 @@ public class VistaAmigosPeludos {
 		}
 	}
 	
-	public static void buscarCentro() {
+	public static void buscarCentro() throws SQLException {
+		if (gestionCen.listarCentros() == null) {
+			System.out.println("No hay centros.");
+			return;
+		}
+		String id = leerTexto("Introduce el ID del centro: ");
+		Centro cen = gestionCen.buscarCentroID(id);
 		
+		if (cen != null) {
+			System.out.println("--- CENTRO ENCONTRADO ---");
+			System.out.println(cen);
+		} else {
+			System.out.println("Error: No existe ese ID.");
+		}
 	}
 	
-	public static void añadirAdop() {
-		
+	public static void añadirAdop() throws SQLException {
+		System.out.println("\n--- Nueva Adopción ---");
+	    
+	    String iDsolicitud = leerTexto("ID solicitud: ");
+	    String idAnimal = leerTexto("ID de animal adoptado: "); 
+	    // Comprobamos si el animal existe antes de seguir
+	    if (gestionAni.buscarAnimalId(idAnimal) == null) {
+	        System.out.println("Error: El animal con ID " + idAnimal + " no existe.");
+	        return;
+	    }
+	    
+	    String DNI = leerTexto("DNI del adoptante: ");
+	    LocalDate fechaAdop = LocalDate.now(); // Asignamos la fecha actual
+	    String estadoStr = leerTexto("Estado adopcion (SOLICITADA/APROBADA/FINALIZADA): ").toUpperCase();
+	    
+	    try {
+	        // Convertimos el String a Enum (suponiendo que usas el Enum EstadoAdopcion)
+	        Adopcion.EstadoAdopcion estado = Adopcion.EstadoAdopcion.valueOf(estadoStr);
+	        Adopcion ad = new Adopcion(iDsolicitud, idAnimal, DNI, fechaAdop, estado);
+	        
+	        if (gestionAdop.añadirAdop(ad)) {
+	            System.out.println("Adopción registrada correctamente.");
+	            Logger.registrar("INSERT", "ADOPCION", "ID: " + iDsolicitud + " para Animal: " + idAnimal);
+	        }
+	    } catch (IllegalArgumentException e) {
+	        System.out.println("Error: Estado no válido o datos incorrectos.");
+	    }
 	}
 	
-	public static void mostrarAdop() {
+	public static void mostrarAdop() throws SQLException {
+		if (gestionAdop.getListaAdopciones().isEmpty()) {
+			System.out.println("No hay adopciones registradas.");
+			return;
+		}
 		
+		System.out.println("\n--- LISTA DE ADOPCIONES ---");
+		for (Adopcion a : gestionAdop.getListaAdopciones()) {
+			System.out.println(a);
+		}
 	}
     
-	public static void borrarAdop() {
+	public static void borrarAdop() throws SQLException {
 		
+		mostrarAdop();
+        if (gestionAdop.getListaAdopciones().isEmpty()) return;
+
+        String id = leerTexto("\n Introduce el ID de la adopción a borrar: ");
+
+        Adopcion eliminada = gestionAdop.elimAdop(id);
+
+        if (eliminada != null) {
+            System.out.println("Se ha eliminado la adopción solicitada por: " + eliminada.getSolicitante());
+        } else {
+            System.out.println("Error: No existe ese ID.");
+        }
 	}
 	
-	public static void modificarAdop() {
-		
+	public static void modificarAdop() throws SQLException{
+		mostrarAdop();
+	    if (gestionAdop.getListaAdopciones().isEmpty()) return;
+
+	    String id = leerTexto("\nIntroduce el ID de la adopción a modificar: ");
+	    Adopcion adop = gestionAdop.buscarAdopcionId(id);
+
+	    if (adop == null) {
+	        System.out.println("Error: No existe esa adopción.");
+	        return;
+	    }
+
+	    System.out.println("Modificando adopción " + id + " (Dejar actual si no se desea cambiar)");
+	    adop.setDniAdoptante(leerTexto("Nuevo DNI: "));
+	    String estadoStr = leerTexto("Nuevo Estado (SOLICITADA/APROBADA/FINALIZADA): ").toUpperCase();
+	    
+	    try {
+	        adop.setEstado(Adopcion.EstadoAdopcion.valueOf(estadoStr));
+	        if (gestionAdop.modAdop(adop)) {
+	            System.out.println("Adopción modificada con éxito.");
+	            Logger.registrar("UPDATE", "ADOPCION", "Modificado ID: " + id);
+	        }
+	    } catch (Exception e) {
+	        System.out.println("Error al modificar: " + e.getMessage());
+	    }
 	}
 	
-	public static void buscarAdop() {
+	public static void buscarAdop() throws SQLException {
+		if (gestionAdop.getListaAdopciones().isEmpty()) {
+			System.out.println("No hay adopciones registradas.");
+			return;
+		}
 		
+		String id = leerTexto("Introduce el ID de la adopción a buscar: ");
+		
+		Adopcion encontrado = gestionAdop.buscarAdopcionId(id);
+		
+		if (encontrado != null) {
+			System.out.println("--- ADOPCIÓN ENCONTRADA ---");
+			System.out.println(encontrado);
+		} else {
+			System.out.println("Error: No existe ese ID.");
+		}
 	}
 	
 	public static void mostrarOpcionAnim() {
