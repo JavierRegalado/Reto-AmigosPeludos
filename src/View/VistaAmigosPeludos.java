@@ -346,24 +346,98 @@ public class VistaAmigosPeludos {
         }
 	}
 	
-	public static void buscarAnimal() {
+	public static void buscarAnimal() throws SQLException {
+		if(gestionAni.totAnimales() == 0) {
+            System.out.println("No hay animales registrados.");
+            return;
+        }
+        
+        String id = leerTexto("\n Introduce el ID del animal a buscar: ");
+        Animal animalEncontrado = gestionAni.buscarAnimalId(id);
+
+        if (animalEncontrado != null) {
+            System.out.println("ANIMAL ENCONTRADO");
+            System.out.println(animalEncontrado);
+        } else {
+            System.out.println("No se ha encontrado ningún animal con el ID " + id);
+        }
+    }
+	
+	public static void crearCentro() throws SQLException {
+		System.out.println("\n--- Nuevo Centro ---");
 		
+    	String idCen = leerTexto("ID centro: ");
+		String direccion = leerTexto("Dirección: ");
+		String provincia = leerTexto("Provincia: ");
+		String ciudad = leerTexto("Ciudad: ");
+
+		try {
+			Centro c = new Centro(idCen, direccion, provincia, ciudad);
+			gestionCen.anadirCentro(c);
+			System.out.println("Centro creado correctamente.");
+		} catch (IllegalArgumentException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
 	}
 	
-	public static void crearCentro() {
-		
-	}
-	
-	public static void mostrarCentro() {
-		
+	public static void mostrarCentro() throws SQLException {
+		if (gestionCen.listarCentros() == null) {
+			System.out.println("No hay centros registrados.");
+			return;
+		}
+		System.out.println("\n--- LISTA DE CENTROS ---");
+		for (Centro cen : gestionCen.listarCentros()) {
+			System.out.println(cen);
+		}
 	}
     
-	public static void eliminarCentro() {
+	public static void eliminarCentro() throws SQLException {
+		mostrarCentro();
 		
+		if (gestionCen.listarCentros() == null) return;
+
+		String id = leerTexto("\n Introduce el ID del centro a eliminar: ");
+		
+		Centro eliminado = gestionCen.eliminarCentro(id);
+		
+		if (eliminado != null) {
+			System.out.println("Centro eliminado: " + eliminado.getCiudad());
+		} else {
+			System.out.println("Error: No existe ese ID.");
+		}
 	}
 	
-	public static void modificarCentro() {
+	public static void modificarCentro() throws SQLException {
+		mostrarCentro();
+		if (gestionCen.listarCentros() == null) return;
+
+		String id = leerTexto("\n Introduce el ID del centro a modificar: ");
 		
+		Centro modificado = gestionCen.buscarCentroID(id);
+		
+		if (gestionCen.buscarCentroID(id) == null) {
+			System.out.println("Error: No existe ese ID.");
+			return;
+		}
+
+		System.out.println("--- Introduce los nuevos datos ---");
+		modificado.setIdCentro(id);
+		modificado.setDireccion(leerTexto("Nueva ciudad: "));
+		String nuevaProv = leerTexto("Nueva Provincia: ");
+		String nuevaCiud = leerTexto("Nueva Ciudad: ");
+
+		try {
+			Centro resultado = gestionCen.modCentro(idNueva, nuevaDir, nuevaProv, nuevaCiud);
+			
+			if (resultado != null) {
+				System.out.println("Centro modificado correctamente.");
+				System.out.println(resultado);
+			} else {
+				System.out.println("Error: No existe ese ID.");
+			}
+		} catch (IllegalArgumentException e) {
+			System.out.println("Error de validación: " + e.getMessage());
+		}
 	}
 	
 	public static void buscarCentro() {
