@@ -11,120 +11,120 @@ import model.Centro;
 
 public class GestionCentro {
 
-    // 1. LEER TODOS LOS CENTROS (listarCentros)
-    public ArrayList<Centro> listarCentros() throws SQLException {
-        ArrayList<Centro> listaCentros = new ArrayList<>();
-        String query = "SELECT * FROM centro";
+	// 1. LEER TODOS LOS CENTROS (listarCentros)
+	public ArrayList<Centro> listarCentros() throws SQLException {
+		ArrayList<Centro> listaCentros = new ArrayList<>();
+		String query = "SELECT * FROM centro";
 
-        Connection con = Conector.getConexion();
-        PreparedStatement myStmt = con.prepareStatement(query);
-        ResultSet myRs = myStmt.executeQuery();
+		Connection con = Conector.getConexion();
+		PreparedStatement myStmt = con.prepareStatement(query);
+		ResultSet myRs = myStmt.executeQuery();
 
-        while (myRs.next()) {
-            String idCentro = myRs.getString("id_centro");
-            String direccion = myRs.getString("direccion");
-            String provincia = myRs.getString("provincia");
-            String ciudad = myRs.getString("ciudad");
+		while (myRs.next()) {
+			String idCentro = myRs.getString("id_centro");
+			String direccion = myRs.getString("direccion");
+			String provincia = myRs.getString("provincia");
+			String ciudad = myRs.getString("ciudad");
 
-            Centro cen = new Centro(idCentro, direccion, provincia, ciudad);
-            listaCentros.add(cen);
-        }
+			Centro cen = new Centro(idCentro, direccion, provincia, ciudad);
+			listaCentros.add(cen);
+		}
 
-        myRs.close();
-        myStmt.close();
-        con.close();
+		myRs.close();
+		myStmt.close();
+		con.close();
 
-        // Para mantener el comportamiento original de tu método:
-        if (listaCentros.isEmpty()) {
-            return null;
-        }
-        return listaCentros;
-    }
+		if (listaCentros.isEmpty()) {
+			return null;
+		}
+		return listaCentros;
+	}
 
-    // 2. BUSCAR UN CENTRO POR ID
-    public Centro buscarCentroID(String idBusqueda) throws SQLException {
-        Centro cen = null;
-        String query = "SELECT * FROM centro WHERE id_centro = ?";
+	// 2. BUSCAR UN CENTRO POR ID
+	public Centro buscarCentroID(String idBusqueda) throws SQLException {
+		Centro cen = null;
+		String query = "SELECT * FROM centro WHERE id_centro = ?";
 
-        Connection con = Conector.getConexion();
-        PreparedStatement myStmt = con.prepareStatement(query);
-        myStmt.setString(1, idBusqueda);
-        
-        ResultSet myRs = myStmt.executeQuery();
+		Connection con = Conector.getConexion();
+		PreparedStatement myStmt = con.prepareStatement(query);
+		myStmt.setString(1, idBusqueda);
 
-        if (myRs.next()) {
-            String idCentro = myRs.getString("id_centro");
-            String direccion = myRs.getString("direccion");
-            String provincia = myRs.getString("provincia");
-            String ciudad = myRs.getString("ciudad");
+		ResultSet myRs = myStmt.executeQuery();
 
-            cen = new Centro(idCentro, direccion, provincia, ciudad);
-        }
+		if (myRs.next()) {
+			String idCentro = myRs.getString("id_centro");
+			String direccion = myRs.getString("direccion");
+			String provincia = myRs.getString("provincia");
+			String ciudad = myRs.getString("ciudad");
 
-        myRs.close();
-        myStmt.close();
-        con.close();
+			cen = new Centro(idCentro, direccion, provincia, ciudad);
+		}
 
-        return cen;
-    }
+		myRs.close();
+		myStmt.close();
+		con.close();
 
-    // 3. AÑADIR (INSERTAR) UN CENTRO
-    public void anadirCentro(Centro cen) throws SQLException {
-        String insert = "INSERT INTO centro (id_centro, direccion, provincia, ciudad) VALUES (?, ?, ?, ?)";
+		return cen;
+	}
 
-        Connection con = Conector.getConexion();
-        PreparedStatement myStmt = con.prepareStatement(insert);
+	// 3. AÑADIR (INSERTAR) UN CENTRO
+	public void anadirCentro(Centro cen) throws SQLException {
+		String insert = "INSERT INTO centro (id_centro, direccion, provincia, ciudad) VALUES (?, ?, ?, ?)";
 
-        myStmt.setString(1, cen.getIdCentro());
-        myStmt.setString(2, cen.getDireccion());
-        myStmt.setString(3, cen.getProvincia());
-        myStmt.setString(4, cen.getCiudad());
+		Connection con = Conector.getConexion();
+		PreparedStatement myStmt = con.prepareStatement(insert);
 
-        myStmt.executeUpdate();
+		myStmt.setString(1, cen.getIdCentro());
+		myStmt.setString(2, cen.getDireccion());
+		myStmt.setString(3, cen.getProvincia());
+		myStmt.setString(4, cen.getCiudad());
 
-        myStmt.close();
-        con.close();
-    }
+		myStmt.executeUpdate();
 
-    // 4. MODIFICAR (ACTUALIZAR) UN CENTRO
-    // Pasamos el objeto Centro entero en lugar de las variables sueltas
-    public Centro modCentro(Centro cen) throws SQLException {
-        String update = "UPDATE centro SET direccion = ?, provincia = ?, ciudad = ? WHERE id_centro = ?";
+		myStmt.close();
+		con.close();
+	}
 
-        Connection con = Conector.getConexion();
-        PreparedStatement myStmt = con.prepareStatement(update);
+	// 4. MODIFICAR (ACTUALIZAR) UN CENTRO
+	// Pasamos el objeto Centro entero en lugar de las variables sueltas
+	public Centro modCentro(Centro cen) throws SQLException {
+		String update = "UPDATE centro SET direccion = ?, provincia = ?, ciudad = ? WHERE id_centro = ?";
 
-        myStmt.setString(1, cen.getDireccion());
-        myStmt.setString(2, cen.getProvincia());
-        myStmt.setString(3, cen.getCiudad());
-        myStmt.setString(4, cen.getIdCentro());
+		Connection con = Conector.getConexion();
+		PreparedStatement myStmt = con.prepareStatement(update);
 
-        myStmt.executeUpdate();
+		myStmt.setString(1, cen.getDireccion());
+		myStmt.setString(2, cen.getProvincia());
+		myStmt.setString(3, cen.getCiudad());
+		myStmt.setString(4, cen.getIdCentro());
 
-        myStmt.close();
-        con.close();
-        
-        return cen;
-    }
+		myStmt.executeUpdate();
 
-    // 5. ELIMINAR UN CENTRO
-    public Centro eliminarCentro(String idABuscar) throws SQLException {
-        // Buscamos primero el centro para poder devolverlo, como hacía tu método original
-        Centro cenEliminado = buscarCentroID(idABuscar);
-        
-        if (cenEliminado != null) {
-            String delete = "DELETE FROM centro WHERE id_centro = ?";
-            
-            Connection con = Conector.getConexion();
-            PreparedStatement myStmt = con.prepareStatement(delete);
-            myStmt.setString(1, idABuscar);
-            
-            myStmt.executeUpdate();
-            
-            myStmt.close();
-            con.close();
-        }
-        
-        return cenEliminado;
-    }
+		myStmt.close();
+		con.close();
+
+		return cen;
+	}
+
+	// 5. ELIMINAR UN CENTRO
+	public Centro eliminarCentro(String idABuscar) throws SQLException {
+		// Buscamos primero el centro para poder devolverlo, como hacía tu método
+		// original
+		Centro cenEliminado = buscarCentroID(idABuscar);
+
+		if (cenEliminado != null) {
+			String delete = "DELETE FROM centro WHERE id_centro = ?";
+
+			Connection con = Conector.getConexion();
+			PreparedStatement myStmt = con.prepareStatement(delete);
+			myStmt.setString(1, idABuscar);
+
+			myStmt.executeUpdate();
+
+			myStmt.close();
+			con.close();
+		}
+
+		return cenEliminado;
+	}
 }

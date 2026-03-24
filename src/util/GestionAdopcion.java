@@ -13,122 +13,122 @@ import model.Adopcion.EstadoAdopcion;
 
 public class GestionAdopcion {
 
-    // 1. LEER TODAS LAS ADOPCIONES
-    public ArrayList<Adopcion> getListaAdopciones() throws SQLException {
-        ArrayList<Adopcion> listaAdopcion = new ArrayList<>();
-        String query = "SELECT * FROM adopcion";
+	// 1. LEER TODAS LAS ADOPCIONES
+	public ArrayList<Adopcion> getListaAdopciones() throws SQLException {
+		ArrayList<Adopcion> listaAdopcion = new ArrayList<>();
+		String query = "SELECT * FROM adopcion";
 
-        Connection con = Conector.getConexion();
-        PreparedStatement myStmt = con.prepareStatement(query);
-        ResultSet myRs = myStmt.executeQuery();
+		Connection con = Conector.getConexion();
+		PreparedStatement myStmt = con.prepareStatement(query);
+		ResultSet myRs = myStmt.executeQuery();
 
-        while (myRs.next()) {
-            String idSolicitud = myRs.getString("id_solicitud");
-            String idAnimal = myRs.getString("id_animal");
-            String dniAdoptante = myRs.getString("dni_adoptante");
-            LocalDate fechaSolicitud = myRs.getDate("fecha_solicitud").toLocalDate();
-            EstadoAdopcion estado = EstadoAdopcion.valueOf(myRs.getString("estado"));
+		while (myRs.next()) {
+			String idSolicitud = myRs.getString("id_solicitud");
+			String idAnimal = myRs.getString("id_animal");
+			String dniAdoptante = myRs.getString("dni_adoptante");
+			LocalDate fechaSolicitud = myRs.getDate("fecha_solicitud").toLocalDate();
+			EstadoAdopcion estado = EstadoAdopcion.valueOf(myRs.getString("estado"));
 
-            Adopcion adop = new Adopcion(idSolicitud, idAnimal, dniAdoptante, fechaSolicitud, estado);
-            listaAdopcion.add(adop);
-        }
+			Adopcion adop = new Adopcion(idSolicitud, idAnimal, dniAdoptante, fechaSolicitud, estado);
+			listaAdopcion.add(adop);
+		}
 
-        // Cerramos conexiones manualmente
-        myRs.close();
-        myStmt.close();
-        con.close();
+		// Cerramos conexiones manualmente
+		myRs.close();
+		myStmt.close();
+		con.close();
 
-        return listaAdopcion;
-    }
+		return listaAdopcion;
+	}
 
-    // 2. BUSCAR UNA ADOPCIÓN POR ID
-    public Adopcion buscarAdopcionId(String idBusqueda) throws SQLException {
-        Adopcion adop = null;
-        String query = "SELECT * FROM adopcion WHERE id_solicitud = ?";
+	// 2. BUSCAR UNA ADOPCIÓN POR ID
+	public Adopcion buscarAdopcionId(String idBusqueda) throws SQLException {
+		Adopcion adop = null;
+		String query = "SELECT * FROM adopcion WHERE id_solicitud = ?";
 
-        Connection con = Conector.getConexion();
-        PreparedStatement myStmt = con.prepareStatement(query);
-        myStmt.setString(1, idBusqueda);
-        
-        ResultSet myRs = myStmt.executeQuery();
-        
-        if (myRs.next()) {
-            String idSolicitud = myRs.getString("id_solicitud");
-            String idAnimal = myRs.getString("id_animal");
-            String dniAdoptante = myRs.getString("dni_adoptante");
-            LocalDate fechaSolicitud = myRs.getDate("fecha_solicitud").toLocalDate();
-            EstadoAdopcion estado = EstadoAdopcion.valueOf(myRs.getString("estado"));
+		Connection con = Conector.getConexion();
+		PreparedStatement myStmt = con.prepareStatement(query);
+		myStmt.setString(1, idBusqueda);
 
-            adop = new Adopcion(idSolicitud, idAnimal, dniAdoptante, fechaSolicitud, estado);
-        }
+		ResultSet myRs = myStmt.executeQuery();
 
-        // Cerramos conexiones
-        myRs.close();
-        myStmt.close();
-        con.close();
+		if (myRs.next()) {
+			String idSolicitud = myRs.getString("id_solicitud");
+			String idAnimal = myRs.getString("id_animal");
+			String dniAdoptante = myRs.getString("dni_adoptante");
+			LocalDate fechaSolicitud = myRs.getDate("fecha_solicitud").toLocalDate();
+			EstadoAdopcion estado = EstadoAdopcion.valueOf(myRs.getString("estado"));
 
-        return adop;
-    }
+			adop = new Adopcion(idSolicitud, idAnimal, dniAdoptante, fechaSolicitud, estado);
+		}
 
-    // 3. AÑADIR (INSERTAR) UNA ADOPCIÓN
-    public boolean añadirAdop(Adopcion adop) throws SQLException {
-        String insert = "INSERT INTO adopcion (id_solicitud, id_animal, dni_adoptante, fecha_solicitud, estado) VALUES (?, ?, ?, ?, ?)";
+		// Cerramos conexiones
+		myRs.close();
+		myStmt.close();
+		con.close();
 
-        Connection con = Conector.getConexion();
-        PreparedStatement myStmt = con.prepareStatement(insert);
+		return adop;
+	}
 
-        myStmt.setString(1, adop.getIdSolicitud());
-        myStmt.setString(2, adop.getIdAnimal());
-        myStmt.setString(3, adop.getDniAdoptante());
-        myStmt.setDate(4, java.sql.Date.valueOf(adop.getFechaSolicitud()));
-        myStmt.setString(5, adop.getEstado().name());
+	// 3. AÑADIR (INSERTAR) UNA ADOPCIÓN
+	public boolean añadirAdop(Adopcion adop) throws SQLException {
+		String insert = "INSERT INTO adopcion (id_solicitud, id_animal, dni_adoptante, fecha_solicitud, estado) VALUES (?, ?, ?, ?, ?)";
 
-        int rows = myStmt.executeUpdate();
+		Connection con = Conector.getConexion();
+		PreparedStatement myStmt = con.prepareStatement(insert);
 
-        // Cerramos conexiones (aquí no hay ResultSet)
-        myStmt.close();
-        con.close();
+		myStmt.setString(1, adop.getIdSolicitud());
+		myStmt.setString(2, adop.getIdAnimal());
+		myStmt.setString(3, adop.getDniAdoptante());
+		myStmt.setDate(4, java.sql.Date.valueOf(adop.getFechaSolicitud()));
+		myStmt.setString(5, adop.getEstado().name());
 
-        return rows > 0;
-    }
+		int rows = myStmt.executeUpdate();
 
-    // 4. MODIFICAR (ACTUALIZAR) UNA ADOPCIÓN
-    public boolean modAdop(Adopcion adop) throws SQLException {
-        String update = "UPDATE adopcion SET id_animal = ?, dni_adoptante = ?, fecha_solicitud = ?, estado = ? WHERE id_solicitud = ?";
+		// Cerramos conexiones (aquí no hay ResultSet)
+		myStmt.close();
+		con.close();
 
-        Connection con = Conector.getConexion();
-        PreparedStatement myStmt = con.prepareStatement(update);
+		return rows > 0;
+	}
 
-        myStmt.setString(1, adop.getIdAnimal());
-        myStmt.setString(2, adop.getDniAdoptante());
-        myStmt.setDate(3, java.sql.Date.valueOf(adop.getFechaSolicitud()));
-        myStmt.setString(4, adop.getEstado().name());
-        myStmt.setString(5, adop.getIdSolicitud());
+	// 4. MODIFICAR (ACTUALIZAR) UNA ADOPCIÓN
+	public boolean modAdop(Adopcion adop) throws SQLException {
+		String update = "UPDATE adopcion SET id_animal = ?, dni_adoptante = ?, fecha_solicitud = ?, estado = ? WHERE id_solicitud = ?";
 
-        int rows = myStmt.executeUpdate();
+		Connection con = Conector.getConexion();
+		PreparedStatement myStmt = con.prepareStatement(update);
 
-        // Cerramos conexiones
-        myStmt.close();
-        con.close();
+		myStmt.setString(1, adop.getIdAnimal());
+		myStmt.setString(2, adop.getDniAdoptante());
+		myStmt.setDate(3, java.sql.Date.valueOf(adop.getFechaSolicitud()));
+		myStmt.setString(4, adop.getEstado().name());
+		myStmt.setString(5, adop.getIdSolicitud());
 
-        return rows > 0;
-    }
+		int rows = myStmt.executeUpdate();
 
-    // 5. ELIMINAR (BORRAR) UNA ADOPCIÓN
-    public boolean elimAdop(String idABuscar) throws SQLException {
-        String delete = "DELETE FROM adopcion WHERE id_solicitud = ?";
+		// Cerramos conexiones
+		myStmt.close();
+		con.close();
 
-        Connection con = Conector.getConexion();
-        PreparedStatement myStmt = con.prepareStatement(delete);
+		return rows > 0;
+	}
 
-        myStmt.setString(1, idABuscar);
+	// 5. ELIMINAR (BORRAR) UNA ADOPCIÓN
+	public boolean elimAdop(String idABuscar) throws SQLException {
+		String delete = "DELETE FROM adopcion WHERE id_solicitud = ?";
 
-        int rows = myStmt.executeUpdate();
+		Connection con = Conector.getConexion();
+		PreparedStatement myStmt = con.prepareStatement(delete);
 
-        // Cerramos conexiones
-        myStmt.close();
-        con.close();
+		myStmt.setString(1, idABuscar);
 
-        return rows > 0;
-    }
+		int rows = myStmt.executeUpdate();
+
+		// Cerramos conexiones
+		myStmt.close();
+		con.close();
+
+		return rows > 0;
+	}
 }
