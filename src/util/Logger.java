@@ -37,7 +37,7 @@ public class Logger {
 	public static void registrar(String operacion, String entidad, String detalle) {
 
 		// true = modo append, añade al final sin borrar lo anterior
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(log, false))) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(log, true))) {
 
 			String fechaHora = LocalDateTime.now().format(FORMATO);
 			bw.write("[" + fechaHora + "] [" + operacion + "] [" + entidad + "] " + detalle);
