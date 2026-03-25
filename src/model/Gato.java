@@ -47,7 +47,7 @@ public class Gato extends Animal {
 	
 	@Override
 	public String toString() {
-		return "Gato [raza=" + raza + ", sociabilidad=" + sociabilidad + ", pelaje=" + pelaje + "]";
+		return super.toString()+" raza=" + raza + ", sociabilidad=" + sociabilidad + ", pelaje=" + pelaje + "]";
 	}
 
 	public String acariciar() {

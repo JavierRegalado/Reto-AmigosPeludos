@@ -61,7 +61,7 @@ public class Perro extends Animal {
 
 	@Override
 	public String toString() {
-		return "Perro [raza=" + raza + ", tamano=" + tamano + ", entrenado=" + entrenado + "]";
+		return super.toString()+" raza=" + raza + ", tamano=" + tamano + ", entrenado=" + entrenado + "]";
 	}
 
 

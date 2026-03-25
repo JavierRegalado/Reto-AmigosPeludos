@@ -8,6 +8,7 @@ import model.Gato;
 import model.Pez;
 import util.GestionAnimal;
 import BD.Conector;
+import View.VistaAmigosPeludos;
 
 public class MenuApp {
 
@@ -16,7 +17,7 @@ public class MenuApp {
 		GestionAnimal gestion = new GestionAnimal();
 		
 		Conector.conectar();
-		try {
+		/*try {
 			System.out.println("--- INICIANDO PRUEBAS DE GESTIÓN ANIMAL ---");
 
 			// 1. PROBAR INSERCIÓN (Añadir un Perro y un Gato)
@@ -70,6 +71,11 @@ public class MenuApp {
 			e.printStackTrace();
 		} catch (Exception e) {
 			System.err.println("Error general: " + e.getMessage());
-		}
+		}*/
+		VistaAmigosPeludos viewMain = new VistaAmigosPeludos();
+		
+		viewMain.iniciar();
+		
+		Conector.cerrarConexion();
 	}
 }

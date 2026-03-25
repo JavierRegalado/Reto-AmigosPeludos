@@ -138,7 +138,7 @@ public class Animal {
 		return "Animal [ID=" + idAnimal + ", Centro=" + idCentro + ", Nombre=" + nombreAnim + ", Edad(meses)="
 				+ edadMeses + ", Especie=" + especie + ", Caracteristicas="
 				+ (caracteristicas != null ? caracteristicas : "Ninguna") + ", Necesidades="
-				+ (necesidadesEspeciales != null ? necesidadesEspeciales : "Ninguna") + "]";
+				+ (necesidadesEspeciales != null ? necesidadesEspeciales : "Ninguna");
 	}
 
 	@Override

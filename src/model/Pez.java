@@ -43,7 +43,7 @@ public class Pez extends Animal {
 
 	@Override
 	public String toString() {
-		return "Pez [aguaDulce=" + aguaDulce + ", especiePez=" + especiePez + ", compatibleComunidad="
+		return super.toString()+" aguaDulce=" + aguaDulce + ", especiePez=" + especiePez + ", compatibleComunidad="
 				+ compatibleComunidad + "]";
 	}
 
