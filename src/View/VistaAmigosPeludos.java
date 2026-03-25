@@ -306,6 +306,7 @@ public class VistaAmigosPeludos {
         if (gestionAni.buscarAnimalId(id) == null) {
             System.out.println("Error: No existe ese ID.");
             return;
+          
         }
 
         System.out.println("--- Introduce los nuevos datos ---");
@@ -347,6 +348,7 @@ public class VistaAmigosPeludos {
         } catch (IllegalArgumentException e) {
             System.out.println("Error de validación: " + e.getMessage());
         }
+        
 	}
 	
 	public static void buscarAnimal() throws SQLException {
@@ -393,6 +395,7 @@ public class VistaAmigosPeludos {
 		for (Centro cen : gestionCen.listarCentros()) {
 			System.out.println(cen);
 		}
+		Logger.registrar("Crear", "Centro", "Se ha creado un centro");
 	}
     
 	public static void eliminarCentro() throws SQLException {
@@ -409,6 +412,7 @@ public class VistaAmigosPeludos {
 		} else {
 			System.out.println("Error: No existe ese ID.");
 		}
+		Logger.registrar("Elimina", "Centro", "Se ha eliminado un centro");
 	}
 	
 	public static void modificarCentro() throws SQLException {
@@ -442,6 +446,7 @@ public class VistaAmigosPeludos {
 		} catch (IllegalArgumentException e) {
 			System.out.println("Error de validación: " + e.getMessage());
 		}
+		Logger.registrar("Modificar", "Centro", "Se ha modificado un centro");
 	}
 	
 	public static void buscarCentro() throws SQLException {
@@ -458,6 +463,7 @@ public class VistaAmigosPeludos {
 		} else {
 			System.out.println("Error: No existe ese ID.");
 		}
+		Logger.registrar("Buscar", "Centro", "Se ha Buscado un centro");
 	}
 	
 	public static void añadirAdop() throws SQLException {
@@ -487,6 +493,7 @@ public class VistaAmigosPeludos {
 	    } catch (IllegalArgumentException e) {
 	        System.out.println("Error: Estado no válido o datos incorrectos.");
 	    }
+	    Logger.registrar("Añadir", "Adopción", "Se ha creado una adopción");
 	}
 	
 	public static void mostrarAdop() throws SQLException {
@@ -499,6 +506,7 @@ public class VistaAmigosPeludos {
 		for (Adopcion a : gestionAdop.getListaAdopciones()) {
 			System.out.println(a);
 		}
+		Logger.registrar("Mostrar", "Adopción", "Se ha mostrado la lista de adopciones");
 	}
     
 	public static void borrarAdop() throws SQLException {
@@ -511,10 +519,11 @@ public class VistaAmigosPeludos {
         Adopcion eliminada = gestionAdop.elimAdop(id);
 
         if (eliminada != null) {
-            System.out.println("Se ha eliminado la adopción solicitada por: " + eliminada.getSolicitante());
+            System.out.println("Se ha eliminado la adopción solicitada por: " + eliminada.getDniAdoptante());
         } else {
             System.out.println("Error: No existe ese ID.");
         }
+        Logger.registrar("Eliminar", "Adopción", "Se ha eliminado una adopción");
 	}
 	
 	public static void modificarAdop() throws SQLException{
@@ -542,6 +551,7 @@ public class VistaAmigosPeludos {
 	    } catch (Exception e) {
 	        System.out.println("Error al modificar: " + e.getMessage());
 	    }
+	    Logger.registrar("Modificar", "Adopción", "Se ha modificado una adopción");
 	}
 	
 	public static void buscarAdop() throws SQLException {
@@ -560,6 +570,7 @@ public class VistaAmigosPeludos {
 		} else {
 			System.out.println("Error: No existe ese ID.");
 		}
+		Logger.registrar("Buscar", "Adopción", "Se ha buscado una adopción");
 	}
 	
 	public static void mostrarOpcionAnim() {
