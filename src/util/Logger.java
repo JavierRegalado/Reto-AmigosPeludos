@@ -27,6 +27,7 @@ public class Logger {
 			bw.write(" Registro de operaciones ");
 			bw.newLine();
 			bw.newLine();
+			bw.close();
 
 		} catch (IOException e) {
 			System.out.println("Error: No se pudo crear el log.txt");
@@ -42,6 +43,7 @@ public class Logger {
 			String fechaHora = LocalDateTime.now().format(FORMATO);
 			bw.write("[" + fechaHora + "] [" + operacion + "] [" + entidad + "] " + detalle);
 			bw.newLine();
+			bw.close();
 
 		} catch (IOException e) {
 			System.out.println("Error: No se pudo escribir en log.txt");

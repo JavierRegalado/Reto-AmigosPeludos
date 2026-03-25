@@ -42,7 +42,7 @@ public class VistaAmigosPeludos {
     		            
     		            eleccionDeGestion(opcion);
     		            
-    		        } while (opcion != 4);
+    		        } while (opcion != 5);
     				break;
     			case 2:
     				do {
@@ -108,7 +108,8 @@ public class VistaAmigosPeludos {
         System.out.println("1. Gestionar animales");
         System.out.println("2. Gestionar centros");
         System.out.println("3. Gestionar adopciones");
-        System.out.println("4. Salir");
+        System.out.println("4. Leer Log");
+        System.out.println("5. Salir");
     }
     
     public static void mostrarMenuUsu() {
@@ -223,6 +224,10 @@ public class VistaAmigosPeludos {
             break;
             
         case 4:
+        	Logger.leerLog();
+        	break;
+            
+        case 5:
             System.out.println("Cerrando interfaz de gestion...");
             break;
         default:
