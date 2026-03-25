@@ -22,11 +22,11 @@ public class GestionCentro {
 
 		while (myRs.next()) {
 			String idCentro = myRs.getString("id_centro");
-			String direccion = myRs.getString("direccion");
-			String provincia = myRs.getString("provincia");
-			String ciudad = myRs.getString("ciudad");
+			String nombre = myRs.getString("Nombre");
+			String localidad = myRs.getString("Localidad");
+			int capaMax = myRs.getInt("CapacidadMaxima");
 
-			Centro cen = new Centro(idCentro, direccion, provincia, ciudad);
+			Centro cen = new Centro(idCentro, nombre, localidad, capaMax);
 			listaCentros.add(cen);
 		}
 
@@ -53,11 +53,11 @@ public class GestionCentro {
 
 		if (myRs.next()) {
 			String idCentro = myRs.getString("id_centro");
-			String direccion = myRs.getString("direccion");
-			String provincia = myRs.getString("provincia");
-			String ciudad = myRs.getString("ciudad");
+			String nombre = myRs.getString("Nombre");
+			String localidad = myRs.getString("Localidad");
+			int capaMax = myRs.getInt("CapacidadMaxima");
 
-			cen = new Centro(idCentro, direccion, provincia, ciudad);
+			cen = new Centro(idCentro, nombre, localidad, capaMax);
 		}
 
 		myRs.close();
@@ -69,39 +69,36 @@ public class GestionCentro {
 
 	// 3. AÑADIR (INSERTAR) UN CENTRO
 	public void anadirCentro(Centro cen) throws SQLException {
-		String insert = "INSERT INTO centro (id_centro, direccion, provincia, ciudad) VALUES (?, ?, ?, ?)";
+		String insert = "CALL crearCentro(?, ?, ?, ?)";
 
-		Connection con = Conector.getConexion();
-		PreparedStatement myStmt = con.prepareStatement(insert);
+	
+		PreparedStatement myStmt = Conector.getConexion().prepareStatement(insert);
 
 		myStmt.setString(1, cen.getIdCentro());
-		myStmt.setString(2, cen.getDireccion());
-		myStmt.setString(3, cen.getProvincia());
-		myStmt.setString(4, cen.getCiudad());
+		myStmt.setString(2, cen.getNombre());
+		myStmt.setString(3, cen.getLocalidad());
+		myStmt.setInt(4, cen.getCapMax());
 
 		myStmt.executeUpdate();
 
 		myStmt.close();
-		con.close();
 	}
 
 	// 4. MODIFICAR (ACTUALIZAR) UN CENTRO
 	// Pasamos el objeto Centro entero en lugar de las variables sueltas
 	public Centro modCentro(Centro cen) throws SQLException {
-		String update = "UPDATE centro SET direccion = ?, provincia = ?, ciudad = ? WHERE id_centro = ?";
+		String update = "CALL modCen(?, ?, ?)";
 
-		Connection con = Conector.getConexion();
-		PreparedStatement myStmt = con.prepareStatement(update);
 
-		myStmt.setString(1, cen.getDireccion());
-		myStmt.setString(2, cen.getProvincia());
-		myStmt.setString(3, cen.getCiudad());
-		myStmt.setString(4, cen.getIdCentro());
+		PreparedStatement myStmt = Conector.getConexion().prepareStatement(update);
+
+		myStmt.setString(1, cen.getIdCentro());
+		myStmt.setString(2, cen.getNombre());
+		myStmt.setInt(3, cen.getCapMax());
 
 		myStmt.executeUpdate();
 
 		myStmt.close();
-		con.close();
 
 		return cen;
 	}
@@ -113,7 +110,7 @@ public class GestionCentro {
 		Centro cenEliminado = buscarCentroID(idABuscar);
 
 		if (cenEliminado != null) {
-			String delete = "DELETE FROM centro WHERE id_centro = ?";
+			String delete = "CALL elimCentro(?)";
 
 			Connection con = Conector.getConexion();
 			PreparedStatement myStmt = con.prepareStatement(delete);

@@ -373,12 +373,12 @@ public class VistaAmigosPeludos {
 		System.out.println("\n--- Nuevo Centro ---");
 		
     	String idCen = leerTexto("ID centro: ");
-		String direccion = leerTexto("Dirección: ");
-		String provincia = leerTexto("Provincia: ");
-		String ciudad = leerTexto("Ciudad: ");
+		String nombre = leerTexto("Nombre: ");
+		String localidad = leerTexto("Localidad: ");
+		int capaMax = leerNum("Capacidad MAxima: ");
 
 		try {
-			Centro c = new Centro(idCen, direccion, provincia, ciudad);
+			Centro c = new Centro(idCen, nombre, localidad, capaMax);
 			gestionCen.anadirCentro(c);
 			System.out.println("Centro creado correctamente.");
 		} catch (IllegalArgumentException e) {
@@ -408,7 +408,7 @@ public class VistaAmigosPeludos {
 		Centro eliminado = gestionCen.eliminarCentro(id);
 		
 		if (eliminado != null) {
-			System.out.println("Centro eliminado: " + eliminado.getCiudad());
+			System.out.println("Centro eliminado: " + eliminado.getNombre());
 		} else {
 			System.out.println("Error: No existe ese ID.");
 		}
@@ -430,9 +430,8 @@ public class VistaAmigosPeludos {
 
 		System.out.println("--- Introduce los nuevos datos ---");
 		resultado.setIdCentro(id);
-		resultado.setDireccion(leerTexto("Nueva direccion: "));
-		resultado.setProvincia(leerTexto("Nueva provincia: "));
-		resultado.setCiudad(leerTexto("Nueva Ciudad: "));
+		resultado.setNombre(leerTexto("Nueva direccion: "));
+		resultado.setCapaMax(leerNum("Nueva capacidad: "));
 
 		try {
 			Centro modificado = gestionCen.modCentro(resultado);

@@ -12,9 +12,9 @@ public class Centro {
 
 	// --- ATRIBUTOS ---
 	private String idCentro;
-	private String direccion;
-	private String provincia;
-	private String ciudad;
+	private String nombre;
+	private String localidad;
+	private int capaMax;
 
 	// --- CONSTRUCTORES ---
 
@@ -22,11 +22,11 @@ public class Centro {
 		// Constructor vacío listo para ser llenado desde la BD
 	}
 
-	public Centro(String idCentro, String direccion, String provincia, String ciudad) {
+	public Centro(String idCentro, String nombre, String localidad, int capaMax) {
 		this.idCentro = idCentro;
-		this.direccion = direccion;
-		this.provincia = provincia;
-		this.ciudad = ciudad;
+		this.nombre = nombre;
+		this.localidad = localidad;
+		this.capaMax = capaMax;
 	}
 
 	// --- GETTERS Y SETTERS ---
@@ -42,31 +42,30 @@ public class Centro {
 		this.idCentro = idCentro;
 	}
 
-	public String getDireccion() {
-		return direccion;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setDireccion(String direccion) {
-		validarConPatron(direccion, PATRON_DIRECCION, "Dirección");
-		this.direccion = direccion;
+	public void setNombre(String nombre) {
+		validarConPatron(nombre, PATRON_DIRECCION, "Dirección");
+		this.nombre = nombre;
 	}
 
-	public String getProvincia() {
-		return provincia;
+	public String getLocalidad() {
+		return localidad;
 	}
 
-	public void setProvincia(String provincia) {
-		validarConPatron(provincia, PATRON_LETRAS, "Provincia");
-		this.provincia = provincia;
+	public void setLocalidad(String localidad) {
+		validarConPatron(localidad, PATRON_LETRAS, "Provincia");
+		this.localidad = localidad;
 	}
 
-	public String getCiudad() {
-		return ciudad;
+	public int getCapMax() {
+		return capaMax;
 	}
 
-	public void setCiudad(String ciudad) {
-		validarConPatron(ciudad, PATRON_LETRAS, "Ciudad");
-		this.ciudad = ciudad;
+	public void setCapaMax(int CapaMax) {
+		this.capaMax = CapaMax;
 	}
 
 	// --- MÉTODO DE VALIDACIÓN UNIFICADO ---
@@ -87,7 +86,7 @@ public class Centro {
 
 	@Override
 	public String toString() {
-		return "Centro [ID=" + idCentro + ", Dirección=" + direccion + ", Provincia=" + provincia + ", Ciudad=" + ciudad
+		return "Centro [ID=" + idCentro + ", Nombre= " + nombre + ", Localidad= " + localidad + ", Capacidad maxima = " + capaMax
 				+ "]";
 	}
 

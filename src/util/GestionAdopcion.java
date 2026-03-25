@@ -129,6 +129,6 @@ public class GestionAdopcion {
 		myStmt.close();
 		con.close();
 
-		return rows > 0;
+		return;
 	}
 }
