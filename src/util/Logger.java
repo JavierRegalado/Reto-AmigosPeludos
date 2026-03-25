@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class Logger {
 
 	// Nombre del archivo log (se crea en la carpeta raíz del proyecto)
-	private static final String ruta = "log.txt";
+	private static final String log = "log.txt";
 
 	// Formato de fecha y hora para cada registro
 	private static final DateTimeFormatter FORMATO = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
@@ -20,7 +20,7 @@ public class Logger {
 	public static void inicializar() {
 
 		// al ser true no borra el credo anteriormente
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(ruta, true))) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(log, true))) {
 
 			bw.write("Inicio: " + LocalDateTime.now().format(FORMATO));
 			bw.newLine();
@@ -37,7 +37,7 @@ public class Logger {
 	public static void registrar(String operacion, String entidad, String detalle) {
 
 		// true = modo append, añade al final sin borrar lo anterior
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(ruta, true))) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(log, true))) {
 
 			String fechaHora = LocalDateTime.now().format(FORMATO);
 			bw.write("[" + fechaHora + "] [" + operacion + "] [" + entidad + "] " + detalle);
@@ -51,7 +51,7 @@ public class Logger {
 	// Lee el archivo log.txt línea a línea y lo muestra por pantalla
 	public static void leerLog() {
 
-		try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(log))) {
 
 			System.out.println("\n=== CONTENIDO DEL LOG ===");
 
