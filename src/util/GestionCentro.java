@@ -14,14 +14,14 @@ public class GestionCentro {
 	// 1. LEER TODOS LOS CENTROS (listarCentros)
 	public ArrayList<Centro> listarCentros() throws SQLException {
 		ArrayList<Centro> listaCentros = new ArrayList<>();
-		String query = "SELECT * FROM centro";
+		String query = "SELECT * FROM centros";
 
 		Connection con = Conector.getConexion();
 		PreparedStatement myStmt = con.prepareStatement(query);
 		ResultSet myRs = myStmt.executeQuery();
 
 		while (myRs.next()) {
-			String idCentro = myRs.getString("id_centro");
+			String idCentro = myRs.getString("IDcentro");
 			String nombre = myRs.getString("Nombre");
 			String localidad = myRs.getString("Localidad");
 			int capaMax = myRs.getInt("CapacidadMaxima");
@@ -43,7 +43,7 @@ public class GestionCentro {
 	// 2. BUSCAR UN CENTRO POR ID
 	public Centro buscarCentroID(String idBusqueda) throws SQLException {
 		Centro cen = null;
-		String query = "SELECT * FROM centro WHERE id_centro = ?";
+		String query = "SELECT * FROM centros WHERE IDcentro = ?";
 
 		Connection con = Conector.getConexion();
 		PreparedStatement myStmt = con.prepareStatement(query);
@@ -52,7 +52,7 @@ public class GestionCentro {
 		ResultSet myRs = myStmt.executeQuery();
 
 		if (myRs.next()) {
-			String idCentro = myRs.getString("id_centro");
+			String idCentro = myRs.getString("IDcentro");
 			String nombre = myRs.getString("Nombre");
 			String localidad = myRs.getString("Localidad");
 			int capaMax = myRs.getInt("CapacidadMaxima");
