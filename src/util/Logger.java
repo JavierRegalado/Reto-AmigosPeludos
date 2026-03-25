@@ -20,7 +20,7 @@ public class Logger {
 	public static void inicializar() {
 
 		// al ser true no borra el credo anteriormente
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(log, true))) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(log, false))) {
 
 			bw.write("Inicio: " + LocalDateTime.now().format(FORMATO));
 			bw.newLine();

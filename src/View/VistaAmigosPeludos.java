@@ -375,7 +375,7 @@ public class VistaAmigosPeludos {
     	String idCen = leerTexto("ID centro: ");
 		String nombre = leerTexto("Nombre: ");
 		String localidad = leerTexto("Localidad: ");
-		int capaMax = leerNum("Capacidad MAxima: ");
+		int capaMax = leerNum("Capacidad Maxima: ");
 
 		try {
 			Centro c = new Centro(idCen, nombre, localidad, capaMax);
@@ -430,7 +430,7 @@ public class VistaAmigosPeludos {
 
 		System.out.println("--- Introduce los nuevos datos ---");
 		resultado.setIdCentro(id);
-		resultado.setNombre(leerTexto("Nueva direccion: "));
+		resultado.setNombre(leerTexto("Nuevo nombre: "));
 		resultado.setCapaMax(leerNum("Nueva capacidad: "));
 
 		try {
