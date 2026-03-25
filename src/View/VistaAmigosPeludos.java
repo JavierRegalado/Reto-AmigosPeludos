@@ -516,7 +516,7 @@ public class VistaAmigosPeludos {
 
         String id = leerTexto("\n Introduce el ID de la adopción a borrar: ");
 
-        Adopcion eliminada = gestionAdop.elimAdop(id);
+        Adopcion eliminada = gestionAdop.elimAdopcion(id);
 
         if (eliminada != null) {
             System.out.println("Se ha eliminado la adopción solicitada por: " + eliminada.getDniAdoptante());

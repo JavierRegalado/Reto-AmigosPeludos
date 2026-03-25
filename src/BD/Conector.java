@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conector {
-
+	private static Connection conexion;
 	// Método estático para cargar el driver (se suele llamar una vez al arrancar la
 	// app)
 	public static void conectar() {
@@ -26,4 +26,7 @@ public class Conector {
 
 		return DriverManager.getConnection(url, user, password);
 	}
+    public static void cerrarConexion() throws SQLException {
+	conexion.close();
+    }
 }

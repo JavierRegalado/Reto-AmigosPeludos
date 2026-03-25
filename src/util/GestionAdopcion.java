@@ -115,20 +115,22 @@ public class GestionAdopcion {
 	}
 
 	// 5. ELIMINAR (BORRAR) UNA ADOPCIÓN
-	public boolean elimAdop(String idABuscar) throws SQLException {
-		String delete = "DELETE FROM solicitudes_adopcion WHERE IDsolicitud = ?";
+	public Adopcion elimAdopcion(String idABuscar) throws SQLException {
+		Adopcion adopEliminado = buscarAdopcionId(idABuscar);
 
-		Connection con = Conector.getConexion();
-		PreparedStatement myStmt = con.prepareStatement(delete);
+		if (adopEliminado != null) {
+			String delete = "DELETE FROM solicitud_adopcion WHERE IDsolicitud = ?";
 
-		myStmt.setString(1, idABuscar);
+			Connection con = Conector.getConexion();
+			PreparedStatement myStmt = con.prepareStatement(delete);
+			myStmt.setString(1, idABuscar);
 
-		int rows = myStmt.executeUpdate();
+			myStmt.executeUpdate();
 
-		// Cerramos conexiones
-		myStmt.close();
-		con.close();
+			myStmt.close();
+			con.close();
+		}
 
-		return rows > 0;
+		return adopEliminado;
 	}
 }
