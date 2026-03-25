@@ -175,8 +175,7 @@ public class GestionAnimal {
 		return ani;
 	}
 
-	// 5. ELIMINAR UN ANIMAL (Gracias al ON DELETE CASCADE, esto borra de las hijas
-	// también)
+	// 5. ELIMINAR UN ANIMAL 
 	public Animal eliminarAnimal(String idABuscar) throws SQLException {
 		Animal aniEliminado = buscarAnimalId(idABuscar);
 

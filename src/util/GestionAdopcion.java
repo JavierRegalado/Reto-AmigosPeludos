@@ -16,18 +16,18 @@ public class GestionAdopcion {
 	// 1. LEER TODAS LAS ADOPCIONES
 	public ArrayList<Adopcion> getListaAdopciones() throws SQLException {
 		ArrayList<Adopcion> listaAdopcion = new ArrayList<>();
-		String query = "SELECT * FROM adopcion";
+		String query = "SELECT * FROM solicitudes_adopcion";
 
 		Connection con = Conector.getConexion();
 		PreparedStatement myStmt = con.prepareStatement(query);
 		ResultSet myRs = myStmt.executeQuery();
 
 		while (myRs.next()) {
-			String idSolicitud = myRs.getString("id_solicitud");
-			String idAnimal = myRs.getString("id_animal");
-			String dniAdoptante = myRs.getString("dni_adoptante");
-			LocalDate fechaSolicitud = myRs.getDate("fecha_solicitud").toLocalDate();
-			EstadoAdopcion estado = EstadoAdopcion.valueOf(myRs.getString("estado"));
+			String idSolicitud = myRs.getString("IDsolicitud");
+			String idAnimal = myRs.getString("IDanimal");
+			String dniAdoptante = myRs.getString("DNIadoptante");
+			LocalDate fechaSolicitud = myRs.getDate("FechaSolicitud").toLocalDate();
+			EstadoAdopcion estado = EstadoAdopcion.valueOf(myRs.getString("Estado"));
 
 			Adopcion adop = new Adopcion(idSolicitud, idAnimal, dniAdoptante, fechaSolicitud, estado);
 			listaAdopcion.add(adop);
@@ -44,7 +44,7 @@ public class GestionAdopcion {
 	// 2. BUSCAR UNA ADOPCIÓN POR ID
 	public Adopcion buscarAdopcionId(String idBusqueda) throws SQLException {
 		Adopcion adop = null;
-		String query = "SELECT * FROM adopcion WHERE id_solicitud = ?";
+		String query = "SELECT * FROM solicitudes_adopcion WHERE IDsolicitud = ?";
 
 		Connection con = Conector.getConexion();
 		PreparedStatement myStmt = con.prepareStatement(query);
@@ -53,11 +53,11 @@ public class GestionAdopcion {
 		ResultSet myRs = myStmt.executeQuery();
 
 		if (myRs.next()) {
-			String idSolicitud = myRs.getString("id_solicitud");
-			String idAnimal = myRs.getString("id_animal");
-			String dniAdoptante = myRs.getString("dni_adoptante");
-			LocalDate fechaSolicitud = myRs.getDate("fecha_solicitud").toLocalDate();
-			EstadoAdopcion estado = EstadoAdopcion.valueOf(myRs.getString("estado"));
+			String idSolicitud = myRs.getString("IDsolicitud");
+			String idAnimal = myRs.getString("IDanimal");
+			String dniAdoptante = myRs.getString("DNIadoptante");
+			LocalDate fechaSolicitud = myRs.getDate("FechaSolicitud").toLocalDate();
+			EstadoAdopcion estado = EstadoAdopcion.valueOf(myRs.getString("Estado"));
 
 			adop = new Adopcion(idSolicitud, idAnimal, dniAdoptante, fechaSolicitud, estado);
 		}
@@ -72,7 +72,7 @@ public class GestionAdopcion {
 
 	// 3. AÑADIR (INSERTAR) UNA ADOPCIÓN
 	public boolean añadirAdop(Adopcion adop) throws SQLException {
-		String insert = "INSERT INTO adopcion (id_solicitud, id_animal, dni_adoptante, fecha_solicitud, estado) VALUES (?, ?, ?, ?, ?)";
+		String insert = "INSERT INTO solicitudes_adopcion (IDsolicitud, IDanimal, DNIadoptante, FechaSolicitud, Estado) VALUES (?, ?, ?, ?, ?)";
 
 		Connection con = Conector.getConexion();
 		PreparedStatement myStmt = con.prepareStatement(insert);
@@ -94,7 +94,7 @@ public class GestionAdopcion {
 
 	// 4. MODIFICAR (ACTUALIZAR) UNA ADOPCIÓN
 	public boolean modAdop(Adopcion adop) throws SQLException {
-		String update = "UPDATE adopcion SET id_animal = ?, dni_adoptante = ?, fecha_solicitud = ?, estado = ? WHERE id_solicitud = ?";
+		String update = "UPDATE solicitudes_adopcion SET IDanimal = ?, DNIadoptante = ?, FechaSolicitud = ?, Estado = ? WHERE IDsolicitud = ?";
 
 		Connection con = Conector.getConexion();
 		PreparedStatement myStmt = con.prepareStatement(update);
@@ -115,8 +115,8 @@ public class GestionAdopcion {
 	}
 
 	// 5. ELIMINAR (BORRAR) UNA ADOPCIÓN
-	public Adopcion elimAdop(String idABuscar) throws SQLException {
-		String delete = "DELETE FROM adopcion WHERE id_solicitud = ?";
+	public boolean elimAdop(String idABuscar) throws SQLException {
+		String delete = "DELETE FROM solicitudes_adopcion WHERE IDsolicitud = ?";
 
 		Connection con = Conector.getConexion();
 		PreparedStatement myStmt = con.prepareStatement(delete);
