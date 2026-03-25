@@ -1,0 +1,7 @@
+Inicio: 25/03/2026 13:29:42
+ Registro de operaciones 
+
+Inicio: 25/03/2026 13:29:54
+ Registro de operaciones 
+
+[25/03/2026 13:34:17] [Mostrar] [Animal] se ha mostrado la lista de animales
