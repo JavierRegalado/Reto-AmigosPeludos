@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.FlowLayout;
+import javax.swing.AbstractListModel;
 
 public class ListaCentros extends JFrame {
 
@@ -55,6 +56,15 @@ public class ListaCentros extends JFrame {
 		contentPane.add(scrollPaneCentros, BorderLayout.WEST);
 		
 		JList listaCentros = new JList();
+		listaCentros.setModel(new AbstractListModel() {
+			String[] values = new String[] {"Refugio esperanza", "Huellas Felices", "Santuario Sur"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
 		scrollPaneCentros.setViewportView(listaCentros);
 		
 		JPanel panel = new JPanel();
