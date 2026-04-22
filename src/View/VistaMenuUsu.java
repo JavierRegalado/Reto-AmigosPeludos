@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class VistaMenuUsu extends JFrame {
 
@@ -45,6 +48,23 @@ public class VistaMenuUsu extends JFrame {
 		
 		JButton salirMenuUsu = new JButton("Salir");
 		panel.add(salirMenuUsu);
+		
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1, BorderLayout.CENTER);
+		panel_1.setLayout(null);
+		
+		JButton accesoAnimalesBtn = new JButton("Animales");
+		accesoAnimalesBtn.setBounds(160, 31, 103, 39);
+		panel_1.add(accesoAnimalesBtn);
+		
+		JButton accesoCentrosBtn = new JButton("Centros");
+		accesoCentrosBtn.setBounds(160, 108, 103, 39);
+		panel_1.add(accesoCentrosBtn);
+		
+		JLabel tituloPestaña = new JLabel("Menu de Usuario");
+		tituloPestaña.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		tituloPestaña.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(tituloPestaña, BorderLayout.NORTH);
 
 	}
 
