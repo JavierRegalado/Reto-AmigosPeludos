@@ -1,4 +1,4 @@
-Inicio: 25/03/2026 14:19:48
+Inicio: 22/04/2026 13:41:47
  Registro de operaciones 
 
-[25/03/2026 14:19:55] [Mostrar] [Adopción] Se ha mostrado la lista de adopciones
+[22/04/2026 13:41:57] [Crear] [Centro] Se ha creado un centro
