@@ -1,4 +1,3 @@
-Inicio: 22/04/2026 13:41:47
+Inicio: 23/04/2026 08:54:37
  Registro de operaciones 
 
-[22/04/2026 13:41:57] [Crear] [Centro] Se ha creado un centro

@@ -78,38 +78,38 @@ public class ListaCentros extends JFrame {
 		panel_1.setLayout(null);
 		
 		JLabel lblCentro = new JLabel("ID Centro");
-		lblCentro.setBounds(10, 11, 86, 14);
+		lblCentro.setBounds(113, 12, 86, 14);
 		panel_1.add(lblCentro);
 		
 		textFieldIDcentro = new JTextField();
-		textFieldIDcentro.setBounds(10, 28, 86, 20);
+		textFieldIDcentro.setBounds(113, 29, 86, 20);
 		panel_1.add(textFieldIDcentro);
 		textFieldIDcentro.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(10, 59, 46, 14);
+		lblNombre.setBounds(113, 58, 46, 14);
 		panel_1.add(lblNombre);
 		
 		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(10, 71, 86, 20);
+		textFieldNombre.setBounds(113, 72, 86, 20);
 		panel_1.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
 		JLabel lblLocalidad = new JLabel("Localidad");
-		lblLocalidad.setBounds(10, 102, 46, 14);
+		lblLocalidad.setBounds(113, 103, 46, 14);
 		panel_1.add(lblLocalidad);
 		
 		textFieldLocalidad = new JTextField();
-		textFieldLocalidad.setBounds(10, 116, 86, 20);
+		textFieldLocalidad.setBounds(113, 117, 86, 20);
 		panel_1.add(textFieldLocalidad);
 		textFieldLocalidad.setColumns(10);
 		
 		JLabel lblCapacidad = new JLabel("Capacidad");
-		lblCapacidad.setBounds(10, 147, 86, 14);
+		lblCapacidad.setBounds(113, 148, 86, 14);
 		panel_1.add(lblCapacidad);
 		
 		textFieldCapacidad = new JTextField();
-		textFieldCapacidad.setBounds(10, 164, 86, 20);
+		textFieldCapacidad.setBounds(113, 165, 86, 20);
 		panel_1.add(textFieldCapacidad);
 		textFieldCapacidad.setColumns(10);
 
