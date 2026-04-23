@@ -19,7 +19,7 @@ public class Logger {
 	// Se llama una vez al inicio del programa para crear el archivo limpio
 	public static void inicializar() {
 
-		// al ser true no borra el credo anteriormente
+		// al ser false, sobreescrive el log.txt eliminando las acciones realizadas en otros registros
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(log, false))) {
 
 			bw.write("Inicio: " + LocalDateTime.now().format(FORMATO));
