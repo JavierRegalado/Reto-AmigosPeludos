@@ -16,10 +16,13 @@ public class VistaMenuUsu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
+	private JButton salirMenuUsu;
+    private JButton accesoAnimalesBtn;
+    private JButton accesoCentrosBtn;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -46,18 +49,18 @@ public class VistaMenuUsu extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
-		JButton salirMenuUsu = new JButton("Salir");
+		salirMenuUsu = new JButton("Salir");
 		panel.add(salirMenuUsu);
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(null);
 		
-		JButton accesoAnimalesBtn = new JButton("Animales");
+		accesoAnimalesBtn = new JButton("Animales");
 		accesoAnimalesBtn.setBounds(160, 31, 103, 39);
 		panel_1.add(accesoAnimalesBtn);
 		
-		JButton accesoCentrosBtn = new JButton("Centros");
+		accesoCentrosBtn = new JButton("Centros");
 		accesoCentrosBtn.setBounds(160, 108, 103, 39);
 		panel_1.add(accesoCentrosBtn);
 		
@@ -66,6 +69,18 @@ public class VistaMenuUsu extends JFrame {
 		tituloPestaña.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(tituloPestaña, BorderLayout.NORTH);
 
+	}
+	
+	public JButton getSalirMenuUsu() {
+		return salirMenuUsu;
+	}
+	
+	public JButton getAccesoAnimalesBtn() {
+		return accesoAnimalesBtn;
+	}
+	
+	public JButton getAccesoCentrosBtn() {
+		return accesoCentrosBtn;
 	}
 
 }

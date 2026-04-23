@@ -18,6 +18,8 @@ public class FormularioAdop extends JFrame {
 	private JTextField textSolicitud;
 	private JTextField textAnimal;
 	private JTextField textDNI;
+	private JButton btnAceptar;
+	private JButton btnCancelar;
 
 	/**
 	 * Launch the application.
@@ -49,10 +51,10 @@ public class FormularioAdop extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
-		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar = new JButton("Aceptar");
 		panel.add(btnAceptar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("Cancelar");
 		panel.add(btnCancelar);
 		
 		JPanel panel_1 = new JPanel();
@@ -89,5 +91,13 @@ public class FormularioAdop extends JFrame {
 		textDNI.setBounds(231, 163, 115, 30);
 		panel_1.add(textDNI);
 
+	}
+	
+	public JButton getBtnAceptar() {
+		return btnAceptar;
+	}
+	
+	public JButton getBtnCancelar() {
+		return btnCancelar;
 	}
 }

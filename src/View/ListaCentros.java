@@ -1,15 +1,10 @@
 package View;
 
-<<<<<<< Updated upstream
-=======
-import java.awt.BorderLayout;
->>>>>>> Stashed changes
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-<<<<<<< Updated upstream
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
@@ -19,34 +14,22 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.FlowLayout;
-=======
-import javax.swing.JScrollPane;
-import javax.swing.JList;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.CardLayout;
->>>>>>> Stashed changes
 import javax.swing.AbstractListModel;
 
 public class ListaCentros extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-<<<<<<< Updated upstream
 	private JTextField textFieldIDcentro;
 	private JTextField textFieldNombre;
 	private JTextField textFieldLocalidad;
 	private JTextField textFieldCapacidad;
-=======
->>>>>>> Stashed changes
+	private JButton btnSalir;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -70,28 +53,12 @@ public class ListaCentros extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-<<<<<<< Updated upstream
 		JScrollPane scrollPaneCentros = new JScrollPane();
 		contentPane.add(scrollPaneCentros, BorderLayout.WEST);
 		
 		JList listaCentros = new JList();
 		listaCentros.setModel(new AbstractListModel() {
 			String[] values = new String[] {"Refugio esperanza", "Huellas Felices", "Santuario Sur"};
-=======
-		JScrollPane scrollCentros = new JScrollPane();
-		contentPane.add(scrollCentros, BorderLayout.WEST);
-		
-		JList listaCentros = new JList();
-		scrollCentros.setViewportView(listaCentros);
-		
-		JPanel infoCentros = new JPanel();
-		contentPane.add(infoCentros, BorderLayout.EAST);
-		infoCentros.setLayout(new BorderLayout(0, 0));
-		
-		JList list = new JList();
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {};
->>>>>>> Stashed changes
 			public int getSize() {
 				return values.length;
 			}
@@ -99,13 +66,12 @@ public class ListaCentros extends JFrame {
 				return values[index];
 			}
 		});
-<<<<<<< Updated upstream
 		scrollPaneCentros.setViewportView(listaCentros);
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
-		JButton btnSalir = new JButton("Salir");
+		btnSalir = new JButton("Salir");
 		panel.add(btnSalir);
 		
 		JPanel panel_1 = new JPanel();
@@ -149,16 +115,9 @@ public class ListaCentros extends JFrame {
 		textFieldCapacidad.setColumns(10);
 
 	}
-
-=======
-		infoCentros.add(list, BorderLayout.WEST);
-		
-		JPanel panelSalir = new JPanel();
-		contentPane.add(panelSalir, BorderLayout.SOUTH);
-		
-		JButton btnSalir = new JButton("Salir");
-		panelSalir.add(btnSalir);
-
+	
+	public JButton getBtnSalir() {
+		return btnSalir;
 	}
->>>>>>> Stashed changes
+
 }
