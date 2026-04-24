@@ -17,7 +17,7 @@ public class ListaAnimales extends JFrame {
 	private JPanel contentPane;
 	private JButton btnVolver;
 	private JButton btnAdoptar;
-	private JList listAnimales;
+	private JList<String> listAnimales;
 
 	/**
 	 * Launch the application.
@@ -86,7 +86,7 @@ public class ListaAnimales extends JFrame {
 		return btnAdoptar;
 	}
 	
-	public JList getListAnimales() {
+	public JList<String> getListAnimales() {
 		return listAnimales;
 	}
 

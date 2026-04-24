@@ -3,7 +3,8 @@ package app;
 import java.sql.SQLException;
 
 import BD.Conector;
-import View.VistaAmigosPeludos;
+import View.VistaMenuUsu;
+import controller.ControllerMenuUsu;
 
 public class MenuApp {
 
@@ -12,9 +13,11 @@ public class MenuApp {
 		
 		Conector.conectar();
 
-		VistaAmigosPeludos viewMain = new VistaAmigosPeludos();
+		VistaMenuUsu menuUsu = new VistaMenuUsu();
 		
-		viewMain.iniciar();
+		ControllerMenuUsu controlador = new ControllerMenuUsu(menuUsu);
+		
+		controlador.iniciar();
 		
 		Conector.cerrarConexion();
 	}

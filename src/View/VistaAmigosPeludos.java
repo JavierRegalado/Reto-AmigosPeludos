@@ -7,14 +7,14 @@ import model.Animal;
 import model.Adopcion;
 import model.Centro;
 import java.sql.SQLException;
-
-import util.GestionAdopcion;
-import util.GestionAnimal;
-import util.GestionCentro;
-import util.Logger;
 import java.time.LocalDate;
 
 import java.util.Scanner;
+
+import dao.GestionAdopcion;
+import dao.GestionAnimal;
+import dao.GestionCentro;
+import dao.Logger;
 
 public class VistaAmigosPeludos {
 	

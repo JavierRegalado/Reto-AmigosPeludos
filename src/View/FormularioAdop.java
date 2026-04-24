@@ -84,6 +84,8 @@ public class FormularioAdop extends JFrame {
 		textAnimal = new JTextField();
 		textAnimal.setColumns(10);
 		textAnimal.setBounds(231, 101, 115, 30);
+		//se pone esto en false porque se rellena automaticamente
+		textAnimal.setEditable(false);
 		panel_1.add(textAnimal);
 		
 		textDNI = new JTextField();
@@ -99,5 +101,16 @@ public class FormularioAdop extends JFrame {
 	
 	public JButton getBtnCancelar() {
 		return btnCancelar;
+	}
+	public JTextField getTextSolicitud() {
+		return textSolicitud;
+	}
+ 
+	public JTextField getTextAnimal() {
+		return textAnimal;
+	}
+ 
+	public JTextField getTextDNI() {
+		return textDNI;
 	}
 }
