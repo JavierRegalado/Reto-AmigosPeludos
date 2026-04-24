@@ -1,7 +1,3 @@
-<<<<<<< Updated upstream
-Inicio: 23/04/2026 08:54:37
-=======
-Inicio: 22/04/2026 13:04:42
->>>>>>> Stashed changes
+Inicio: 24/04/2026 12:04:31
  Registro de operaciones 
 
