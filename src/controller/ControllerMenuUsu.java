@@ -18,7 +18,14 @@ public class ControllerMenuUsu {
 				iniciarListaAnimales();
 			}
 		});
+		
+		this.vista.getAccesoCentrosBtn().addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				iniciarListaCentros();
+			}
+		});
+		
 	}
 	
-
 }
