@@ -21,7 +21,12 @@ public class ControllerFormAdop {
 		
 		this.vista.getBtnAceptar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				guardarAdop();
+				try {
+					guardarAdop();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -32,7 +37,7 @@ public class ControllerFormAdop {
 		});
 	}
 	
-	private void guardarAdop() {
+	private void guardarAdop() throws SQLException {
 		String idSolicitud = vista.getTextSolicitud().getText().trim();
 		String idAnimal = vista.getTextAnimal().getText().trim();
 		String dni = vista.getTextDNI().getText().trim();
@@ -43,7 +48,7 @@ public class ControllerFormAdop {
 			adopcion.setDniAdoptante(dni);
  
 			GestionAdopcion gestion = new GestionAdopcion();
-			
+			gestion.añadirAdop(adopcion);
 	}
 	
 	private void cancelar() {

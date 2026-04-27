@@ -24,9 +24,13 @@ public class Conector {
 		String user = "root";
 		String password = "1DAW3_BBDD";
 
-		return DriverManager.getConnection(url, user, password);
+		conexion = DriverManager.getConnection(url, user, password);
+		return conexion;
 	}
     public static void cerrarConexion() throws SQLException {
-	conexion.close();
+    	if (conexion != null) {
+    		conexion.close();
+    		conexion = null;
+    	}
     }
 }
