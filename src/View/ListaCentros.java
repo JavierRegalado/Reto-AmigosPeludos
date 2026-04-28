@@ -25,6 +25,7 @@ public class ListaCentros extends JFrame {
 	private JTextField textFieldLocalidad;
 	private JTextField textFieldCapacidad;
 	private JButton btnSalir;
+	private JList<String> listCentros;
 
 	/**
 	 * Launch the application.
@@ -56,8 +57,8 @@ public class ListaCentros extends JFrame {
 		JScrollPane scrollPaneCentros = new JScrollPane();
 		contentPane.add(scrollPaneCentros, BorderLayout.WEST);
 		
-		JList listaCentros = new JList();
-		listaCentros.setModel(new AbstractListModel() {
+		listCentros = new JList<String>();
+		listCentros.setModel(new AbstractListModel() {
 			String[] values = new String[] {"Refugio esperanza", "Huellas Felices", "Santuario Sur"};
 			public int getSize() {
 				return values.length;
@@ -66,7 +67,7 @@ public class ListaCentros extends JFrame {
 				return values[index];
 			}
 		});
-		scrollPaneCentros.setViewportView(listaCentros);
+		scrollPaneCentros.setViewportView(listCentros);
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
@@ -79,39 +80,43 @@ public class ListaCentros extends JFrame {
 		panel_1.setLayout(null);
 		
 		JLabel lblCentro = new JLabel("ID Centro");
-		lblCentro.setBounds(113, 12, 86, 14);
+		lblCentro.setBounds(54, 11, 86, 14);
 		panel_1.add(lblCentro);
 		
 		textFieldIDcentro = new JTextField();
-		textFieldIDcentro.setBounds(113, 29, 86, 20);
+		textFieldIDcentro.setBounds(54, 28, 86, 20);
 		panel_1.add(textFieldIDcentro);
+		textFieldIDcentro.setEditable(false);
 		textFieldIDcentro.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(113, 58, 46, 14);
+		lblNombre.setBounds(54, 57, 46, 14);
 		panel_1.add(lblNombre);
 		
 		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(113, 72, 86, 20);
+		textFieldNombre.setBounds(54, 71, 150, 20);
 		panel_1.add(textFieldNombre);
+		textFieldNombre.setEditable(false);
 		textFieldNombre.setColumns(10);
 		
 		JLabel lblLocalidad = new JLabel("Localidad");
-		lblLocalidad.setBounds(113, 103, 46, 14);
+		lblLocalidad.setBounds(54, 102, 46, 14);
 		panel_1.add(lblLocalidad);
 		
 		textFieldLocalidad = new JTextField();
-		textFieldLocalidad.setBounds(113, 117, 86, 20);
+		textFieldLocalidad.setBounds(54, 116, 86, 20);
 		panel_1.add(textFieldLocalidad);
+		textFieldLocalidad.setEditable(false);
 		textFieldLocalidad.setColumns(10);
 		
 		JLabel lblCapacidad = new JLabel("Capacidad");
-		lblCapacidad.setBounds(113, 148, 86, 14);
+		lblCapacidad.setBounds(54, 147, 86, 14);
 		panel_1.add(lblCapacidad);
 		
 		textFieldCapacidad = new JTextField();
-		textFieldCapacidad.setBounds(113, 165, 86, 20);
+		textFieldCapacidad.setBounds(54, 164, 86, 20);
 		panel_1.add(textFieldCapacidad);
+		textFieldCapacidad.setEditable(false);
 		textFieldCapacidad.setColumns(10);
 
 	}
@@ -119,5 +124,20 @@ public class ListaCentros extends JFrame {
 	public JButton getBtnSalir() {
 		return btnSalir;
 	}
+	public JList<String> getListCentros() {
+		return listCentros;
+	}
 
+	public JTextField getTextCentro() {
+		return textFieldIDcentro;
+	}
+	public JTextField getTextNombre() {
+		return textFieldNombre;
+	}
+	public JTextField getTextLocalidad() {
+		return textFieldLocalidad;
+	}
+	public JTextField getTextCapacidad() {
+		return textFieldCapacidad;
+	}
 }

@@ -9,6 +9,7 @@ import View.ListaAnimales;
 import View.VistaMenuUsu;
 import model.Adopcion;
 import dao.GestionAdopcion;
+import dao.Logger;
 
 public class ControllerFormAdop {
 	
@@ -18,6 +19,15 @@ public class ControllerFormAdop {
 		this.vista = vista;
 		
 		this.vista.getTextAnimal().setText(idAnimal);
+		
+		try {
+			GestionAdopcion gestion = new GestionAdopcion();
+			String nuevoId = gestion.generarNuevoId();
+			this.vista.getTextSolicitud().setText(nuevoId);
+			this.vista.getTextSolicitud().setEditable(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		this.vista.getBtnAceptar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -49,6 +59,8 @@ public class ControllerFormAdop {
  
 			GestionAdopcion gestion = new GestionAdopcion();
 			gestion.añadirAdop(adopcion);
+			
+			Logger.registrar("Añadir", "Solicitud Adopcion", "Se ha creado una adopción");
 	}
 	
 	private void cancelar() {

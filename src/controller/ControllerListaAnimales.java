@@ -11,6 +11,7 @@ import model.Animal;
 import dao.GestionAnimal;
 import View.FormularioAdop;
 import controller.ControllerFormAdop;
+import dao.Logger;
  
 import javax.swing.DefaultListModel;
  
@@ -53,6 +54,7 @@ public class ControllerListaAnimales {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
  
 	private void volver() {

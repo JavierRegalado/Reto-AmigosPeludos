@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import View.ListaAnimales;
 import View.ListaCentros;
 import View.VistaMenuUsu;
+import dao.Logger;
  
 public class ControllerMenuUsu {
  
@@ -25,12 +26,15 @@ public class ControllerMenuUsu {
 		this.vista.getAccesoAnimalesBtn().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				iniciarVistaAnimales();
+				Logger.registrar("Mostrar", "Animal", "se ha mostrado la lista de animales");
 			}
 		});
  
 		this.vista.getAccesoCentrosBtn().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				iniciarListaCentros();
+				
+				Logger.registrar("Mostrar", "Centros", "se ha mostrado la lista de centros");
 			}
 		});
  
