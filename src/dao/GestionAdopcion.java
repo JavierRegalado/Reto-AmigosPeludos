@@ -14,27 +14,6 @@ import model.Adopcion.EstadoAdopcion;
 public class GestionAdopcion {
 
 	
-	public String generarNuevoId() throws SQLException {
-		String query = "SELECT MAX(IDsolicitud) FROM solicitudes_adopcion";
- 
-		Connection con = Conector.getConexion();
-		PreparedStatement myStmt = con.prepareStatement(query);
-		ResultSet myRs = myStmt.executeQuery();
- 
-		int nuevoNumero = 1;
- 
-		if (myRs.next() && myRs.getString(1) != null) {
-			String ultimoId = myRs.getString(1); // Ej: "SOL009"
-			int ultimoNumero = Integer.parseInt(ultimoId.substring(3)); // Extrae 9
-			nuevoNumero = ultimoNumero + 1;
-		}
- 
-		myRs.close();
-		myStmt.close();
-		con.close();
- 
-		return String.format("SOL%03d", nuevoNumero); // Ej: "SOL010"
-	}
 	
 	// 1. LEER TODAS LAS ADOPCIONES
 	public ArrayList<Adopcion> getListaAdopciones() throws SQLException {
@@ -52,7 +31,7 @@ public class GestionAdopcion {
 			LocalDate fechaSolicitud = myRs.getDate("fechaSolicitud").toLocalDate();
 			EstadoAdopcion estado = EstadoAdopcion.valueOf(myRs.getString("Estado"));
 
-			Adopcion adop = new Adopcion(idSolicitud, idAnimal, dniAdoptante, fechaSolicitud, estado);
+			Adopcion adop = new Adopcion(idSolicitud, idAnimal, dniAdoptante, fechaSolicitud, estado, true);
 			listaAdopcion.add(adop);
 		}
 
@@ -82,7 +61,7 @@ public class GestionAdopcion {
 			LocalDate fechaSolicitud = myRs.getDate("fechaSolicitud").toLocalDate();
 			EstadoAdopcion estado = EstadoAdopcion.valueOf(myRs.getString("Estado"));
 
-			adop = new Adopcion(idSolicitud, idAnimal, dniAdoptante, fechaSolicitud, estado);
+			adop = new Adopcion(idSolicitud, idAnimal, dniAdoptante, fechaSolicitud, estado, true);
 		}
 
 		// Cerramos conexiones
@@ -155,5 +134,20 @@ public class GestionAdopcion {
 		}
 
 		return adopEliminado;
+	}
+	
+	public int contarAdopciones() throws SQLException {
+	    String query = "SELECT COUNT(*) FROM solicitudes_adopcion";
+	    int total = 0;
+
+	    try (Connection con = Conector.getConexion();
+	         PreparedStatement myStmt = con.prepareStatement(query);
+	         ResultSet myRs = myStmt.executeQuery()) {
+	        
+	        if (myRs.next()) {
+	            total = myRs.getInt(1);
+	        }
+	    }
+	    return total;
 	}
 }

@@ -13,7 +13,7 @@ public class Perro extends Animal {
 	
 
 	public Perro(String idAnimal, String idCentro, String nombreAnim, int edadMeses, String caracteristicas, String necesidadesEspeciales,String raza, String tamano, boolean entrenado) {
-		super(idAnimal, idCentro, nombreAnim, edadMeses, Especie.Perro, caracteristicas, necesidadesEspeciales);
+		super(idAnimal, idCentro, nombreAnim, edadMeses, Especie.Perro, caracteristicas, necesidadesEspeciales, true);
 		this.raza = raza;
 		this.tamano = tamano;
 		this.entrenado = entrenado;

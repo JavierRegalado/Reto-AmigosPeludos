@@ -1,3 +1,16 @@
 Inicio: 24/04/2026 12:04:31
  Registro de operaciones 
 
+[28/04/2026 09:40:58] [Mostrar] [Animal] se ha mostrado la lista de animales
+[28/04/2026 09:40:58] [Mostrar] [Centros] se ha mostrado la lista de centros
+[28/04/2026 09:41:24] [Mostrar] [Animal] se ha mostrado la lista de animales
+[28/04/2026 09:41:24] [Mostrar] [Centros] se ha mostrado la lista de centros
+[28/04/2026 09:43:31] [Mostrar] [Animal] se ha mostrado la lista de animales
+[28/04/2026 09:43:49] [Mostrar] [Centros] se ha mostrado la lista de centros
+[28/04/2026 09:59:19] [Mostrar] [Animal] se ha mostrado la lista de animales
+[29/04/2026 13:54:54] [Mostrar] [Animal] se ha mostrado la lista de animales
+[29/04/2026 14:01:51] [Mostrar] [Animal] se ha mostrado la lista de animales
+[29/04/2026 14:08:12] [Mostrar] [Animal] se ha mostrado la lista de animales
+[29/04/2026 14:13:45] [Mostrar] [Animal] se ha mostrado la lista de animales
+[29/04/2026 14:15:34] [Mostrar] [Animal] se ha mostrado la lista de animales
+[29/04/2026 14:16:10] [Añadir] [Solicitud Adopcion] Se ha creado una adopción

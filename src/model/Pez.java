@@ -12,7 +12,7 @@ public class Pez extends Animal {
 
 	public Pez(String idAnimal, String idCentro, String nombreAnim, int edadMeses, String caracteristicas,
 			String necesidadesEspeciales, String especiePez, boolean aguaDulce, boolean compatibleComunidad) {
-		super(idAnimal, idCentro, nombreAnim, edadMeses, Especie.Pez, caracteristicas, necesidadesEspeciales);
+		super(idAnimal, idCentro, nombreAnim, edadMeses, Especie.Pez, caracteristicas, necesidadesEspeciales, true);
 		this.especiePez = especiePez;
 		this.aguaDulce = aguaDulce;
 		this.compatibleComunidad = compatibleComunidad;

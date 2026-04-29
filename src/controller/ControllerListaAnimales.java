@@ -65,14 +65,20 @@ public class ControllerListaAnimales {
 	}
  
 	private void iniciarAdopcion() {
-		int indice = vista.getListAnimales().getSelectedIndex();
-		Animal animalSelec = listaAnimales.get(indice);
-		String idAnimal = animalSelec.getIdAnimal();
-		FormularioAdop formAdop = new FormularioAdop();
-		ControllerFormAdop controlador = new ControllerFormAdop(formAdop, idAnimal);
-		controlador.iniciarAdop();
-		vista.setVisible(false);
-		
+	    // 1. Obtenemos el índice seleccionado
+	    int indice = vista.getListAnimales().getSelectedIndex();
+	    
+	    // 2. Comprobamos que REALMENTE se ha seleccionado algo (índice distinto de -1)
+	    if (indice != -1) {
+	        Animal animalSelec = listaAnimales.get(indice);
+	        String idAnimal = animalSelec.getIdAnimal();
+	        
+	        FormularioAdop formAdop = new FormularioAdop();
+	        ControllerFormAdop controlador = new ControllerFormAdop(formAdop, idAnimal);
+	        controlador.iniciarAdop();
+	        
+	        vista.setVisible(false);
+	    } 
 	}
  
 	public void iniciarListaAnimales() {

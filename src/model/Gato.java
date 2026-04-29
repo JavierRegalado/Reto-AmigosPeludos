@@ -13,7 +13,7 @@ public class Gato extends Animal {
 	// Constructor adaptado a la nueva clase Animal y con asignación directa
 	public Gato(String idAnimal, String idCentro, String nombreAnim, int edadMeses, String caracteristicas,
 			String necesidadesEspeciales,String raza, int sociabilidad, String pelaje) {
-		super(idAnimal, idCentro, nombreAnim, edadMeses, Especie.Gato, caracteristicas, necesidadesEspeciales);
+		super(idAnimal, idCentro, nombreAnim, edadMeses, Especie.Gato, caracteristicas, necesidadesEspeciales, true);
 		this.raza = raza;
 		this.sociabilidad = sociabilidad;
 		this.pelaje = pelaje;

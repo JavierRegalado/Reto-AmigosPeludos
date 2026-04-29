@@ -15,36 +15,43 @@ public class ControllerFormAdop {
 	
 	private FormularioAdop vista;
 	
-	public ControllerFormAdop(FormularioAdop vista,String idAnimal) {
+	public ControllerFormAdop(FormularioAdop vista, String idAnimal) {
 		this.vista = vista;
-		
-		this.vista.getTextAnimal().setText(idAnimal);
-		
-		try {
-			GestionAdopcion gestion = new GestionAdopcion();
-			String nuevoId = gestion.generarNuevoId();
-			this.vista.getTextSolicitud().setText(nuevoId);
-			this.vista.getTextSolicitud().setEditable(false);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		this.vista.getBtnAceptar().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					guardarAdop();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		
-		this.vista.getBtnCancelar().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cancelar();
-			}
-		});
+	    this.vista.getTextAnimal().setText(idAnimal);
+	    
+	    try {
+
+	        GestionAdopcion gestion = new GestionAdopcion();
+	        
+
+	        int siguienteNumero = gestion.contarAdopciones() + 1;
+	        
+	   
+	        String idGenerado = String.format("SOL%03d", siguienteNumero);
+	        
+	        this.vista.getTextSolicitud().setText(idGenerado);
+	        this.vista.getTextSolicitud().setEditable(false);
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        this.vista.getTextSolicitud().setText("ERROR");
+	    }
+	    
+	    this.vista.getBtnAceptar().addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            try {
+	                guardarAdop();
+	            } catch (SQLException e1) {
+	                e1.printStackTrace();
+	            }
+	        }
+	    });
+	    
+	    this.vista.getBtnCancelar().addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            cancelar();
+	        }
+	    });
 	}
 	
 	private void guardarAdop() throws SQLException {

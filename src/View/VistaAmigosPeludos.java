@@ -488,7 +488,7 @@ public class VistaAmigosPeludos {
 	    try {
 	        // Convertimos el String a Enum (suponiendo que usas el Enum EstadoAdopcion)
 	        Adopcion.EstadoAdopcion estado = Adopcion.EstadoAdopcion.valueOf(estadoStr);
-	        Adopcion ad = new Adopcion(iDsolicitud, idAnimal, DNI, fechaAdop, estado);
+	        Adopcion ad = new Adopcion(iDsolicitud, idAnimal, DNI, fechaAdop, estado, true);
 	        
 	        if (gestionAdop.añadirAdop(ad)) {
 	            System.out.println("Adopción registrada correctamente.");
